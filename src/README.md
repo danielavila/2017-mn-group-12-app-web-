@@ -1,8 +1,5 @@
-# Java-Spark-FTL
-RestFul application built in Java 8 Spark and Free Marker Template. This application is part of the blogpost - http://prashantb.me/working-with-java-spark-framework
+# 2017-mn-group-12
 
-## About this Application
-It is a simple User Management Application. The major focus of this application is to understand the restful nature of the Spark Framework and how easy it is to put up and use data at FrontEnd.
 
 ## How to Run
 
