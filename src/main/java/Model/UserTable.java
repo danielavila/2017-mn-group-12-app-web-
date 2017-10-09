@@ -3,15 +3,16 @@
     /**
      * UserTable class. Alternative for Database table
      */
+    
     public class UserTable {
         private String id;
-        private String firstName;
-        private String middleName;
-        private String lastName;
-        private int age;
-        private char gender;
-        private String phone;
-        private long zip;
+        private String nombre;
+        private String segudoNombre;
+        private String apellido;
+        private int edad;
+        private char sexo;
+        private String telefono;
+        private long codigoPostal;
 
         public String getId() {
             return id;
@@ -21,60 +22,60 @@
             this.id = id;
         }
 
-        public String getFirstName() {
-            return firstName;
+        public String getNombre() {
+            return nombre;
         }
 
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
         }
 
-        public String getMiddleName() {
-            return middleName;
+        public String getSegudoNombre() {
+            return segudoNombre;
         }
 
-        public void setMiddleName(String middleName) {
-            this.middleName = middleName;
+        public void setSegudoNombre(String segudoNombre) {
+            this.segudoNombre = segudoNombre;
         }
 
-        public String getLastName() {
-            return lastName;
+        public String getApellido() {
+            return apellido;
         }
 
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
+        public void setApellido(String apellido) {
+            this.apellido = apellido;
         }
 
-        public int getAge() {
-            return age;
+        public int getEdad() {
+            return edad;
         }
 
-        public void setAge(int age) {
-            this.age = age;
+        public void setEdad(int edad) {
+            this.edad = edad;
         }
 
-        public char getGender() {
-            return gender;
+        public char getSexo() {
+            return sexo;
         }
 
-        public void setGender(char gender) {
-            this.gender = gender;
+        public void setSexo(char sexo) {
+            this.sexo = sexo;
         }
 
-        public String getPhone() {
-            return phone;
+        public String getTelefono() {
+            return telefono;
         }
 
-        public void setPhone(String phone) {
-            this.phone = phone;
+        public void setTelefono(String telefono) {
+            this.telefono = telefono;
         }
 
-        public long getZip() {
-            return zip;
+        public long getCodigoPostal() {
+            return codigoPostal;
         }
 
-        public void setZip(long zip) {
-            this.zip = zip;
+        public void setCodigoPostal(long codigoPostal) {
+            this.codigoPostal = codigoPostal;
         }
         
     }

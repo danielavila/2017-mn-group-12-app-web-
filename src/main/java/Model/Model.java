@@ -35,13 +35,13 @@ public class Model {
     public int createUser(String id, String fname, String mname, String lname, int age, char gender, String phone, long zip) {
         UserTable usr = new UserTable();
         usr.setId(id);
-        usr.setFirstName(fname);
-        usr.setMiddleName(mname);
-        usr.setLastName(lname);
-        usr.setAge(age);
-        usr.setGender(gender);
-        usr.setPhone(phone);
-        usr.setZip(zip);
+        usr.setNombre(fname);
+        usr.setSegudoNombre(mname);
+        usr.setApellido(lname);
+        usr.setEdad(age);
+        usr.setSexo(gender);
+        usr.setTelefono(phone);
+        usr.setCodigoPostal(zip);
         user.put(id,usr);
         return 1;
     }
@@ -76,13 +76,13 @@ public class Model {
      */
     public int updateUser(String id, String fname, String mname, String lname, int age, char gender, String phone, long zip) {
         UserTable usr = (UserTable)user.get(id);
-        usr.setFirstName(fname);
-        usr.setMiddleName(mname);
-        usr.setLastName(lname);
-        usr.setAge(age);
-        usr.setGender(gender);
-        usr.setPhone(phone);
-        usr.setZip(zip);
+        usr.setNombre(fname);
+        usr.setSegudoNombre(mname);
+        usr.setApellido(lname);
+        usr.setEdad(age);
+        usr.setSexo(gender);
+        usr.setTelefono(phone);
+        usr.setCodigoPostal(zip);
         user.put(id,usr);
         return 1;
     }
