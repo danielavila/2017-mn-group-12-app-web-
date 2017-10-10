@@ -33,7 +33,7 @@ public class MainClass {
      */
     private void init() {
         Model mod = new Model();
-        
+
         get("/", (request, response) -> {
            Map<String, Object> viewObjects = new HashMap<String, Object>();
            viewObjects.put("title", "TP ANUAL DDS");
@@ -84,6 +84,27 @@ public class MainClass {
             response.status(200);
             return toJSON(mod.sendElements());
         });
+        
+        ////////////////////////////////////////////////////////////////
+        
+        get("/getEmpresas", (request, response) -> {
+            response.status(200);
+            Map<String, Object> viewObjects = new HashMap<String, Object>();
+            mod.getEmpresas();
+            viewObjects.put("templateName", "mostrarEmpresa.ftl");
+            return new ModelAndView(viewObjects, "main.ftl");
+        }, new FreeMarkerEngine());
+
+        get("/getusers", (request, response) -> {
+            response.status(200);
+            return toJSON(mod.sendElements());
+        });
+        ///////////////////////////////////////////////////////////
+        
+        
+        
+        
+        
 
         get("/removeUser", (request, response) -> {
            Map<String, Object> viewObjects = new HashMap<String, Object>();

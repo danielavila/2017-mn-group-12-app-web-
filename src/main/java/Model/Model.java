@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import ar.edu.utn.dds.entidades.Empresas;
+import ar.edu.utn.dds.modelo.Empresa;
+
 /**
  *
  * @author prash_000
@@ -44,6 +47,16 @@ public class Model {
         usr.setCodigoPostal(zip);
         user.put(id,usr);
         return 1;
+    }
+    public void getEmpresas(){
+    	
+    	 Empresas.setEmpresas();
+    	 Empresas.getEmpresas().forEach(unaE->{
+    		 TablaEmpresa te=new TablaEmpresa();
+    		 te.setNombre(unaE.getNombre());
+    		 te.setFechaInscripcion(unaE.getFechaInscripcion());
+    	 });
+    	
     }
     
     /**
