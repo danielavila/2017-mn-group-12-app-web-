@@ -104,6 +104,19 @@ public class MainClass {
         }, new FreeMarkerEngine());
         
         
+        get("/getEmpresas/:id", (request, response) -> {
+            String id = request.params(":id");
+            Map<String, Object> viewObjects = new HashMap<String, Object>();
+            mod.getCuentas(id);
+            viewObjects.put("templateName", "mostrarCuentas.ftl");
+            return new ModelAndView (viewObjects, "main.ftl");
+        }, new FreeMarkerEngine());
+        
+        get("/getcuentas",(request,response) -> {
+        	response.status(200);
+        	return toJSON(mod.sendCuentas());
+        });
+        
         get("/getempresas", (request, response) -> {
             response.status(200);
             return toJSON(mod.sendEmpresas());

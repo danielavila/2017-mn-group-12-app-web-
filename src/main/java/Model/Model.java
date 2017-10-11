@@ -17,6 +17,7 @@ import ar.edu.utn.dds.modelo.Empresa;
 public class Model {
     private Map<String, Object> user;
     private Map<String, Object> empresa;
+    private Map<String, Object> cuenta;
 
     /**
      * Constructor
@@ -24,6 +25,7 @@ public class Model {
     public Model() {
         this.user = new HashMap<>();
         this.empresa = new HashMap<>();
+        this.cuenta = new HashMap<>();
     }
     
     /**
@@ -63,6 +65,22 @@ public class Model {
     	 });
     	
     }
+    
+    
+    public void getCuentas(String id) {
+    	Empresas.getEmpresas().forEach(unaE -> {
+    		if(String.valueOf(unaE.getId()).equals(id)) {
+    			unaE.getCuentas().forEach(unaC -> {
+    				TablaCuenta tc = new TablaCuenta();
+    				tc.setNombre(unaC.getNombre());
+    				tc.setValor(unaC.getValor());
+    				cuenta.put(String.valueOf(unaC.getId()), tc);
+    			});
+    		}
+    	});
+    }
+    
+    
     public List<Empresa> getEmpHandle() {
     	Empresas.setEmpresas();
     	return Empresas.getEmpresas();
@@ -128,6 +146,12 @@ public class Model {
     
     public List sendEmpresas() {
     	List<Object> ret = new ArrayList<>(empresa.values());
+    	return ret;
+    }
+    
+    public List sendCuentas() {
+    	List<Object> ret = new ArrayList<>(cuenta.values());
+    	cuenta.clear();
     	return ret;
     }
 
