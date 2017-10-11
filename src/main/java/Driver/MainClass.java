@@ -1,17 +1,25 @@
 package Driver;
 
-import Model.Model;
-import TemplateEngine.FreeMarkerEngine;
-import User.User;
+import static spark.Spark.get;
+import static spark.Spark.post;
+import static spark.Spark.put;
+import static spark.Spark.staticFileLocation;
+
 import java.io.IOException;
-import static spark.Spark.*;
-import spark.ModelAndView;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import Model.Model;
+import TemplateEngine.FreeMarkerEngine;
+import User.User;
+import spark.ModelAndView;
+import spark.Spark;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 /**
  *
  * @author prash_000
@@ -86,15 +94,21 @@ public class MainClass {
         });
         
         ////////////////////////////////////////////////////////////////
-        
+
         get("/getEmpresas", (request, response) -> {
             response.status(200);
-            Map<String, Object> viewObjects = new HashMap<String, Object>();
             mod.getEmpresas();
+            Map<String, Object> viewObjects = new HashMap<String, Object>();
             viewObjects.put("templateName", "mostrarEmpresa.ftl");
             return new ModelAndView(viewObjects, "main.ftl");
         }, new FreeMarkerEngine());
-
+        
+        
+        get("/getempresas", (request, response) -> {
+            response.status(200);
+            return toJSON(mod.sendEmpresas());
+        });
+        
         get("/getusers", (request, response) -> {
             response.status(200);
             return toJSON(mod.sendElements());

@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,12 +16,14 @@ import ar.edu.utn.dds.modelo.Empresa;
  */
 public class Model {
     private Map<String, Object> user;
+    private Map<String, Object> empresa;
 
     /**
      * Constructor
      */
     public Model() {
         this.user = new HashMap<>();
+        this.empresa = new HashMap<>();
     }
     
     /**
@@ -52,11 +55,17 @@ public class Model {
     	
     	 Empresas.setEmpresas();
     	 Empresas.getEmpresas().forEach(unaE->{
+    		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     		 TablaEmpresa te=new TablaEmpresa();
     		 te.setNombre(unaE.getNombre());
-    		 te.setFechaInscripcion(unaE.getFechaInscripcion());
+    		 te.setFechaInscripcion(unaE.getFechaInscripcion().format(formatter));
+    		 empresa.put(String.valueOf(unaE.getId()), te);
     	 });
     	
+    }
+    public List<Empresa> getEmpHandle() {
+    	Empresas.setEmpresas();
+    	return Empresas.getEmpresas();
     }
     
     /**
@@ -115,6 +124,11 @@ public class Model {
     public List sendElements() {
         List<Object> ret = new ArrayList<>(user.values());
         return ret;
+    }
+    
+    public List sendEmpresas() {
+    	List<Object> ret = new ArrayList<>(empresa.values());
+    	return ret;
     }
 
     public List sendUsersId() {

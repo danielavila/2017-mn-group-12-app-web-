@@ -1,10 +1,10 @@
 package Model;
 
-import java.time.LocalDate;
 
 public class TablaEmpresa {
 	private String nombre;
-	private LocalDate fechaInscripcion;
+	private String fechaInscripcion;
+
 	
 	public String getNombre() {
 		return nombre;
@@ -12,10 +12,10 @@ public class TablaEmpresa {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public LocalDate getFechaInscripcion() {
+	public String getFechaInscripcion() {
 		return fechaInscripcion;
 	}
-	public void setFechaInscripcion(LocalDate fechaInscripcion) {
+	public void setFechaInscripcion(String fechaInscripcion) {
 		this.fechaInscripcion = fechaInscripcion;
 	}
 }

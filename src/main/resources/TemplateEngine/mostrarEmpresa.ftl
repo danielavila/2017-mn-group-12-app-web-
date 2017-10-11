@@ -1,4 +1,4 @@
- <style>
+<style>
  table th a {
  	text-transform: capitalize;
  }
@@ -12,9 +12,12 @@
  	<script src="js/awesomeTable.js" type="text/javascript"></script>
  	<script>
  		$( document ).ready(function() {
- 			$.getJSON('/getEmpresas',function(json){
-    			
-    			
+ 			$.getJSON('/getempresas',function(json){
+    			if ( json.length == 0 ) {
+        			console.log("NO DATA!");
+        			$(".tablaEmpresa").text("No se encuentran empresas");
+    			}
+    			else {
     				var tbl = new awesomeTableJs({
 						data:json,
 						tableWrapper:".tablaEmpresa",
@@ -23,7 +26,7 @@
 						buildSearch: false,
 					});
 					tbl.createTable();	
-    			
+    			}
 			});
  			
 		});
