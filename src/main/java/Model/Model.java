@@ -59,9 +59,11 @@ public class Model {
     	 Empresas.getEmpresas().forEach(unaE->{
     		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     		 TablaEmpresa te=new TablaEmpresa();
+    		 String id = String.valueOf(unaE.getId());
     		 te.setNombre(unaE.getNombre());
     		 te.setFechaInscripcion(unaE.getFechaInscripcion().format(formatter));
-    		 empresa.put(String.valueOf(unaE.getId()), te);
+    		 te.setLinkCuentas(id);
+    		 empresa.put(id, te);
     	 });
     	
     }
@@ -151,7 +153,6 @@ public class Model {
     
     public List sendCuentas() {
     	List<Object> ret = new ArrayList<>(cuenta.values());
-    	cuenta.clear();
     	return ret;
     }
 

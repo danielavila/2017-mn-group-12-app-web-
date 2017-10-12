@@ -105,6 +105,7 @@ public class MainClass {
         
         
         get("/getEmpresas/:id", (request, response) -> {
+        	response.status(200);
             String id = request.params(":id");
             Map<String, Object> viewObjects = new HashMap<String, Object>();
             mod.getCuentas(id);

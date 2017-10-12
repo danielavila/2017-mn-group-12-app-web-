@@ -4,7 +4,16 @@ package Model;
 public class TablaEmpresa {
 	private String nombre;
 	private String fechaInscripcion;
+	private String cuentas;
 
+	
+	public void setLinkCuentas(String id) {
+		this.cuentas = "http://localhost:4567/getEmpresas/" + id;
+	}
+	
+	public String getLinkCuentas() {
+		return cuentas;
+	}
 	
 	public String getNombre() {
 		return nombre;
