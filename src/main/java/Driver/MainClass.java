@@ -19,7 +19,7 @@ import TemplateEngine.FreeMarkerEngine;
 import User.User;
 import spark.ModelAndView;
 import spark.Spark;
-import spark.template.handlebars.HandlebarsTemplateEngine;
+
 /**
  *
  * @author prash_000
@@ -104,11 +104,11 @@ public class MainClass {
         }, new FreeMarkerEngine());
         
         
-        get("/getEmpresas/:id", (request, response) -> {
+        get("/getCuentas", (request, response) -> {
         	response.status(200);
             String id = request.params(":id");
             Map<String, Object> viewObjects = new HashMap<String, Object>();
-            mod.getCuentas(id);
+            mod.getCuentas("38");
             viewObjects.put("templateName", "mostrarCuentas.ftl");
             return new ModelAndView (viewObjects, "main.ftl");
         }, new FreeMarkerEngine());
