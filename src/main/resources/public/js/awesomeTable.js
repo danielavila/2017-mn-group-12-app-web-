@@ -19,7 +19,7 @@
     this.globalOptions = {
       url: "",
       data: "",
-      pageSize: 100,
+      pageSize: 15,
       //wrapper: "",
       tableWrapper: "",
       paginationWrapper: "",
@@ -418,7 +418,7 @@
       if (dropDown) {
         this.globalOptions.pageSize = parseInt(dropDown.value, 10);
       } else {
-        this.globalOptions.pageSize = 100;
+        this.globalOptions.pageSize = 15;
       }
     }
     this.paging(1);
@@ -430,7 +430,7 @@
     //  var self = this;
     for (var i = 1; i <= 5; i++) {
       var option = document.createElement('option');
-      option.innerHTML = i * 100;
+      option.innerHTML = i * 15;
       dropDown.appendChild(option);
     }
     dropDown.addEventListener('change', this.changePageSize.bind(this,

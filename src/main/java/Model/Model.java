@@ -18,6 +18,7 @@ public class Model {
     private Map<String, Object> user;
     private Map<String, Object> empresa;
     private Map<String, Object> cuenta;
+    private Map<String, Object> indicador;
 
     /**
      * Constructor
@@ -26,6 +27,7 @@ public class Model {
         this.user = new HashMap<>();
         this.empresa = new HashMap<>();
         this.cuenta = new HashMap<>();
+        this.indicador=new HashMap<>();
     }
     
     /**
@@ -53,6 +55,20 @@ public class Model {
         user.put(id,usr);
         return 1;
     }
+    
+    
+    public int createIndicador(String id, String nombre, String expresion) {       
+        TablaIndicador ind=new TablaIndicador();
+        ind.setId(id);
+        ind.setNombre(nombre);
+        ind.setExpresion(expresion);    
+       indicador.put(id,ind);
+        return 1;
+    }
+    
+    
+    
+    
     public void getEmpresas(){
     	
     	 Empresas.setEmpresas();
@@ -100,6 +116,16 @@ public class Model {
             Map.Entry pair = (Map.Entry)it.next();
             UserTable u = (UserTable)pair.getValue();
             if((u.getId().equals(id)))
+                return false;
+        }
+        return true;
+    }
+    public boolean checkIndicador(String id) {
+        Iterator it = indicador.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            TablaIndicador i = (TablaIndicador)pair.getValue();
+            if((i.getId().equals(id)))
                 return false;
         }
         return true;

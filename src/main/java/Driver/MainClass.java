@@ -16,7 +16,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import Model.Model;
 import TemplateEngine.FreeMarkerEngine;
+import User.IndicadorWeb;
 import User.User;
+import ar.edu.utn.dds.entidades.Indicadores;
+import ar.edu.utn.dds.modelo.Indicador;
 import spark.ModelAndView;
 import spark.Spark;
 
@@ -48,6 +51,89 @@ public class MainClass {
            viewObjects.put("templateName", "home.ftl");
            return new ModelAndView(viewObjects, "main.ftl");
         }, new FreeMarkerEngine());
+        
+        /////////////////////////////////////////////////////////////////
+        get("/crearIndicador", (request, response) -> {
+            response.status(200);
+            
+            Map<String, Object> viewObjects = new HashMap<String, Object>();
+            viewObjects.put("templateName", "crearIndicador.ftl");
+            return new ModelAndView(viewObjects, "main.ftl");
+        }, new FreeMarkerEngine());
+        
+        post("/crearIndicador", (request, response) -> {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                IndicadorWeb i = mapper.readValue(request.body(),IndicadorWeb.class);
+                if (!i.isValid()) {
+                    response.status(400);
+                    return "Corregir los campos";
+                }
+                if(mod.checkIndicador(i.getId())) {
+                    int id = mod.createIndicador(i.getId(),i.getNombre(),i.getExpresion());
+                    Indicador indicadorApersistir =new Indicador(i.getNombre(),i.getExpresion());
+                    Indicadores.persistirIndicador(indicadorApersistir);
+                    response.status(200);
+                    response.type("application/json");
+                    return id;
+                }
+                else {
+                    response.status(400);
+                    response.type("application/json");
+                    return "Ya existe el indicador";
+                }
+                } catch (JsonParseException jpe) {
+                    response.status(404);
+                    return "Exception";
+                }
+        });
+        
+        
+        
+        get("/getEmpresas", (request, response) -> {
+            response.status(200);
+            mod.getEmpresas();
+            Map<String, Object> viewObjects = new HashMap<String, Object>();
+            viewObjects.put("templateName", "mostrarEmpresa.ftl");
+            return new ModelAndView(viewObjects, "main.ftl");
+        }, new FreeMarkerEngine());
+        
+        
+       get("/getCuentas", (request, response) -> {
+    	  
+        	response.status(200);          
+           Map<String, Object> viewObjects = new HashMap<String, Object>();
+            viewObjects.put("templateName", "mostrarCuentas.ftl");
+  
+            return new ModelAndView (viewObjects, "main.ftl");
+        }, new FreeMarkerEngine());
+       
+        get("/getCuentas/:id", (request, response) -> {
+        	response.status(200); 
+        	String id = request.params(":id");
+           Map<String, Object> viewObjects = new HashMap<String, Object>();
+            viewObjects.put("templateName", "mostrarCuentas.ftl");
+           mod.getCuentas(id);
+           response.redirect("/getCuentas");
+            return new ModelAndView (viewObjects, "main.ftl");
+        }, new FreeMarkerEngine());
+        
+        get("/getcuentas",(request,response) -> {
+        	response.status(200);
+        	return toJSON(mod.sendCuentas());
+        });
+      
+        
+        get("/getempresas", (request, response) -> {
+            response.status(200);
+            return toJSON(mod.sendEmpresas());
+        });
+        
+        
+        
+        
+        /////////////////////////////////////////////////////////////////
+
         
         get("/createUser", (request, response) -> {
            Map<String, Object> viewObjects = new HashMap<String, Object>();
@@ -92,54 +178,14 @@ public class MainClass {
             response.status(200);
             return toJSON(mod.sendElements());
         });
-        
-        ////////////////////////////////////////////////////////////////
 
-        get("/getEmpresas", (request, response) -> {
-            response.status(200);
-            mod.getEmpresas();
-            Map<String, Object> viewObjects = new HashMap<String, Object>();
-            viewObjects.put("templateName", "mostrarEmpresa.ftl");
-            return new ModelAndView(viewObjects, "main.ftl");
-        }, new FreeMarkerEngine());
-        
-        
-       get("/getCuentas", (request, response) -> {
-    	  
-        	response.status(200);          
-           Map<String, Object> viewObjects = new HashMap<String, Object>();
-            viewObjects.put("templateName", "mostrarCuentas.ftl");
-  
-            return new ModelAndView (viewObjects, "main.ftl");
-        }, new FreeMarkerEngine());
-       
-        get("/getCuentas/:id", (request, response) -> {
-        	response.status(200); 
-        	String id = request.params(":id");
-           Map<String, Object> viewObjects = new HashMap<String, Object>();
-            viewObjects.put("templateName", "mostrarCuentas.ftl");
-           mod.getCuentas(id);
-           response.redirect("/getCuentas");
-            return new ModelAndView (viewObjects, "main.ftl");
-        }, new FreeMarkerEngine());
-        
-        get("/getcuentas",(request,response) -> {
-        	response.status(200);
-        	return toJSON(mod.sendCuentas());
-        });
-      
-        
-        get("/getempresas", (request, response) -> {
-            response.status(200);
-            return toJSON(mod.sendEmpresas());
-        });
+
         
         get("/getusers", (request, response) -> {
             response.status(200);
             return toJSON(mod.sendElements());
         });
-        ///////////////////////////////////////////////////////////
-        
+    
         
         
         
