@@ -70,6 +70,7 @@ public class Model {
     
     
     public void getCuentas(String id) {
+    	this.cuenta.clear();
     	Empresas.getEmpresas().forEach(unaE -> {
     		if(String.valueOf(unaE.getId()).equals(id)) {
     			unaE.getCuentas().forEach(unaC -> {

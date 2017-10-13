@@ -1,6 +1,7 @@
 package Model;
 
 
+
 public class TablaEmpresa {
 	private String nombre;
 	private String fechaInscripcion;
@@ -8,7 +9,9 @@ public class TablaEmpresa {
 
 	
 	public void setLinkCuentas(String id) {
-		this.cuentas = "http://localhost:4567/getEmpresas/" + id;
+		
+			this.cuentas ="http://localhost:4567/getCuentas/"+id;
+	
 	}
 	
 	public String getLinkCuentas() {

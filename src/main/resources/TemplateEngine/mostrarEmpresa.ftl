@@ -19,7 +19,8 @@
     			}
     			else {
     				var tbl = new awesomeTableJs({
-						data:json,
+			
+						data:json,					
 						tableWrapper:".tablaEmpresa",
 						paginationWrapper:".paginationContainer",
 						buildPageSize: false,
