@@ -20,6 +20,7 @@
         			$(".tablaCuenta").text("No se encuentran cuentas");
     			}
     			else {
+    	
     				var tbl = new awesomeTableJs({
 						data:json,
 						tableWrapper:".tablaCuenta",
