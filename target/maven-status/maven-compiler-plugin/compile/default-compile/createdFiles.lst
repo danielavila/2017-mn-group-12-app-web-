@@ -1,7 +1,0 @@
-Model\Model.class
-Model\TablaEmpresa.class
-Model\UserTable.class
-User\Validable.class
-TemplateEngine\FreeMarkerEngine.class
-Driver\MainClass.class
-User\User.class
