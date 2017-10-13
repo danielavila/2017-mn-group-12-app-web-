@@ -8,6 +8,8 @@
     	<h2> Cuentas </h2>
     	<div class="tablaCuenta"> </div>
 		<div class="paginationContainer "></div>
+    	</div>
+    
     </div>	
  	<script src="js/awesomeTable.js" type="text/javascript"></script>
  	<script>

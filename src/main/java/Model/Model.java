@@ -150,8 +150,13 @@ public class Model {
     	List<Object> ret = new ArrayList<>(empresa.values());
     	return ret;
     }
+    public List sendEmpresasID() {
+    	List<Object> ret = new ArrayList<>(empresa.keySet());
+    	return ret;
+    }
     
     public List sendCuentas() {
+
     	List<Object> ret = new ArrayList<>(cuenta.values());
     	return ret;
     }

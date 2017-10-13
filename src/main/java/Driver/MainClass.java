@@ -105,15 +105,26 @@ public class MainClass {
         
         
         get("/getCuentas", (request, response) -> {
-        	response.status(200);
-            String id = request.params(":id");
-            Map<String, Object> viewObjects = new HashMap<String, Object>();
-            mod.getCuentas("38");
+        	response.status(200);          
+           Map<String, Object> viewObjects = new HashMap<String, Object>();
             viewObjects.put("templateName", "mostrarCuentas.ftl");
+            viewObjects.put("users", toJSON(mod.sendEmpresasID()));
+            return new ModelAndView (viewObjects, "main.ftl");
+        }, new FreeMarkerEngine());
+        get("/getCuentas/:id", (request, response) -> {
+        	response.status(200); 
+        	String id = request.params(":id");
+           Map<String, Object> viewObjects = new HashMap<String, Object>();
+            viewObjects.put("templateName", "mostrarCuentas.ftl");
+           mod.getCuentas(id);
             return new ModelAndView (viewObjects, "main.ftl");
         }, new FreeMarkerEngine());
         
         get("/getcuentas",(request,response) -> {
+        	response.status(200);
+        	return toJSON(mod.sendCuentas());
+        });
+        get("/getcuentas/:id",(request,response) -> {
         	response.status(200);
         	return toJSON(mod.sendCuentas());
         });
