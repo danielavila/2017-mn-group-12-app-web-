@@ -7,7 +7,11 @@ import static spark.Spark.staticFileLocation;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -16,10 +20,17 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import Model.Model;
 import TemplateEngine.FreeMarkerEngine;
+import User.IndicadorCalculable;
 import User.IndicadorWeb;
 import User.User;
+import ar.edu.utn.dds.entidades.Empresas;
 import ar.edu.utn.dds.entidades.Indicadores;
+import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
+import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
+import ar.edu.utn.dds.modelo.Empresa;
 import ar.edu.utn.dds.modelo.Indicador;
+import ar.edu.utn.dds.modelo.Periodo;
+import ar.edu.utn.dds.modelo.Traductor;
 import spark.ModelAndView;
 import spark.Spark;
 
@@ -53,9 +64,51 @@ public class MainClass {
         }, new FreeMarkerEngine());
         
         /////////////////////////////////////////////////////////////////
+        
+        get("/calcularIndicador", (request, response) -> {    	  
+        	response.status(200);          
+           Map<String, Object> viewObjects = new HashMap<String, Object>();        
+            viewObjects.put("templateName", "calcularIndicador.ftl");        
+            return new ModelAndView (viewObjects, "main.ftl");
+        }, new FreeMarkerEngine());
+        
+        post("/calcularIndicador", (request, response) -> {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                IndicadorCalculable i = mapper.readValue(request.body(),IndicadorCalculable.class);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");            
+                LocalDate fechaInicio = LocalDate.parse(i.getFechaInicio(), formatter);
+                LocalDate fechaFin = LocalDate.parse(i.getFechaFin(), formatter);
+                Periodo p=new Periodo(fechaInicio,fechaFin);
+                Traductor t= new Traductor();
+                List<Empresa>empresas=Empresas.getEmpresas();
+                t.setEmpresas((ArrayList<Empresa>) empresas);
+             
+                t.setIndicadores((ArrayList<Indicador>) Indicadores.getIndicadores());
+                if(mod.checkIndicadorCalculable(i)) {
+                	
+                	String resultado=String.valueOf(t.calcular(i.getNombreEmpresa(), p, i.getNombreIndicador()));
+                    response.status(200);
+                    response.type("application/json");               
+                   return resultado; 
+                }
+                else {
+                    response.status(400);
+                    response.type("application/json");
+                    return "La empresa no existe";
+                }
+                } catch (JsonParseException jpe) {
+                    response.status(404);
+                    return "Exception";
+                }
+        });
+        
+        
+        
+        
+        
         get("/crearIndicador", (request, response) -> {
-            response.status(200);
-            
+            response.status(200);         
             Map<String, Object> viewObjects = new HashMap<String, Object>();
             viewObjects.put("templateName", "crearIndicador.ftl");
             return new ModelAndView(viewObjects, "main.ftl");

@@ -25,6 +25,7 @@
                         <li><a href="getAllUsers">Get All Users</a></li>
                          <li><a href="getEmpresas">Obtener Empresas</a></li>
                          <li><a href="crearIndicador">Crear indicador</a></li>
+                          <li><a href="calcularIndicador">Calcular indicador</a></li>
                         <li><a href="updateUser">Update User</a></li>
                         <li><a href="removeUser">Remove User</a></li>
                     </ul>

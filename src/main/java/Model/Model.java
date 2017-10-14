@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import User.IndicadorCalculable;
 import ar.edu.utn.dds.entidades.Empresas;
+import ar.edu.utn.dds.entidades.Indicadores;
 import ar.edu.utn.dds.modelo.Empresa;
 
 /**
@@ -19,15 +22,19 @@ public class Model {
     private Map<String, Object> empresa;
     private Map<String, Object> cuenta;
     private Map<String, Object> indicador;
+    private Map<String, Object> indicadores;
 
     /**
      * Constructor
      */
     public Model() {
+    	Empresas.setEmpresas();
+    	Indicadores.setIndicadores();
         this.user = new HashMap<>();
         this.empresa = new HashMap<>();
         this.cuenta = new HashMap<>();
         this.indicador=new HashMap<>();
+        this.indicadores=new HashMap<>();
     }
     
     /**
@@ -71,7 +78,7 @@ public class Model {
     
     public void getEmpresas(){
     	
-    	 Empresas.setEmpresas();
+    	
     	 Empresas.getEmpresas().forEach(unaE->{
     		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     		 TablaEmpresa te=new TablaEmpresa();
@@ -101,7 +108,7 @@ public class Model {
     
     
     public List<Empresa> getEmpHandle() {
-    	Empresas.setEmpresas();
+    	
     	return Empresas.getEmpresas();
     }
     
@@ -192,4 +199,20 @@ public class Model {
         List<Object> ret = new ArrayList<>(user.keySet());
         return ret;
     }
+    
+    public List sendNombresInd() {
+    	Indicadores.getIndicadores().stream().forEach(unI->
+    	indicadores.put(String.valueOf(unI.getId()), unI.getNombre()));
+    	List<Object> ret = new ArrayList<>(indicadores.values());
+        return ret ;
+    }
+
+	public boolean checkIndicadorCalculable(IndicadorCalculable i) {
+		if(Empresas.getEmpresas().stream().noneMatch(unaE->unaE.getNombre().equals(i.getNombreEmpresa()))) {
+			return false;
+		}
+		
+		return true;
+	}
+    
 }
