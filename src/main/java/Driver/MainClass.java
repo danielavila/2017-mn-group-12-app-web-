@@ -81,15 +81,14 @@ public class MainClass {
                 LocalDate fechaFin = LocalDate.parse(i.getFechaFin(), formatter);
                 Periodo p=new Periodo(fechaInicio,fechaFin);
                 Traductor t= new Traductor();
-                List<Empresa>empresas=Empresas.getEmpresas();
-                t.setEmpresas((ArrayList<Empresa>) empresas);
-             
-                t.setIndicadores((ArrayList<Indicador>) Indicadores.getIndicadores());
+                t.cargarTraductor();
+          
                 if(mod.checkIndicadorCalculable(i)) {
                 	
                 	String resultado=String.valueOf(t.calcular(i.getNombreEmpresa(), p, i.getNombreIndicador()));
                     response.status(200);
-                    response.type("application/json");               
+                    response.type("application/json"); 
+                    System.out.println(resultado);
                    return resultado; 
                 }
                 else {
