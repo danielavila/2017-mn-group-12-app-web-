@@ -1,20 +1,23 @@
 package Model;
 
-
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class TablaEmpresa {
+	private String id ;
 	private String nombre;
 	private String fechaInscripcion;
-	private String cuentas;
+	private URL cuentas;
 
 	
-	public void setLinkCuentas(String id) {
-		
-			this.cuentas ="http://localhost:4567/getCuentas/"+id;
-	
+	public void setLinkCuentas(String id) throws MalformedURLException {
+		URL domain = new URL("http://localhost:4567/getEmpresas");
+		URL url = new URL(domain + "/"+id);
+
+			this.cuentas =url;
 	}
 	
-	public String getLinkCuentas() {
+	public URL getLinkCuentas() {
 		return cuentas;
 	}
 	
@@ -29,5 +32,15 @@ public class TablaEmpresa {
 	}
 	public void setFechaInscripcion(String fechaInscripcion) {
 		this.fechaInscripcion = fechaInscripcion;
+	}
+
+	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

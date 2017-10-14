@@ -1,5 +1,6 @@
 package Model;
 
+import java.net.MalformedURLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,9 +84,15 @@ public class Model {
     		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     		 TablaEmpresa te=new TablaEmpresa();
     		 String id = String.valueOf(unaE.getId());
+    		 te.setId(id);
     		 te.setNombre(unaE.getNombre());
     		 te.setFechaInscripcion(unaE.getFechaInscripcion().format(formatter));
-    		 te.setLinkCuentas(id);
+    		 try {
+				te.setLinkCuentas(id);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		 empresa.put(id, te);
     	 });
     	
