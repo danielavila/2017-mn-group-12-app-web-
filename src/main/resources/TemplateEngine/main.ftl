@@ -20,14 +20,11 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/">Home</a></li>
-                        <li><a href="createUser">Create User</a></li>
-                        <li><a href="getAllUsers">Get All Users</a></li>
+                        <li class="active"><a href="/">Home</a></li>                       
                          <li><a href="getEmpresas">Obtener Empresas</a></li>
                          <li><a href="crearIndicador">Crear indicador</a></li>
                           <li><a href="calcularIndicador">Calcular indicador</a></li>
-                        <li><a href="updateUser">Update User</a></li>
-                        <li><a href="removeUser">Remove User</a></li>
+                          <li><a href="crearMetodologia">Crear metodologia</a></li>                      
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
