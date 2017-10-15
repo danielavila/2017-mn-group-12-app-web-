@@ -24,7 +24,8 @@
                          <li><a href="getEmpresas">Obtener Empresas</a></li>
                          <li><a href="crearIndicador">Crear indicador</a></li>
                           <li><a href="calcularIndicador">Calcular indicador</a></li>
-                          <li><a href="crearMetodologia">Crear metodologia</a></li>                      
+                          <li><a href="crearMetodologia">Crear metodologia</a></li>   
+                          <li><a href="aplicarMetodologia">Aplicar metodologia</a></li>                     
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

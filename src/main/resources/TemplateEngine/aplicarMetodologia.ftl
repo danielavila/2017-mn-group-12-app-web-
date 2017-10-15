@@ -1,23 +1,23 @@
-<h2>Condicion Creciente</h2>
+<h2>Aplicar Metodologia</h2>
    <p id="status"></p>
   <form action="" method="POST" role="form">
+  
     <div class="form-group">
-      <label for="anios">Ingrese los anios </label>
-      <input type="text" class="form-control" id="anios" name="anios" placeholder="anios">
-    </div>
-   <div class="form-group">
-      <label for="nombreIndicador">Ingrese el indicador </label>
-      <input type="text" class="form-control" id="nombreIndicador" name="nombreIndicador" placeholder="debe comenzar con i_">
-    </div>
-		<div class="form-group">
-		
-    <button type="submit" class="btn btn-default">Crear condicion</button>
+      <label for="nombre">Nombre metodologia</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
     </div>
     <div class="form-group">
-       <#assign var_link = "http://localhost:4567/crearMetodologia">
+      <label for="empresa">Nombre empresa</label>
+      <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Nombre">
+    </div>
 
-<a href="${var_link}">Volver al menu metodologia</a>
-       </div>
+   <div class="form-group">
+      <button type="submit" class="btn btn-default">Agregar empresa</button>
+      </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Aplicar metodologia</button>
+      </div>
+ 
   </form>
 
 
@@ -38,11 +38,11 @@ $(function() {
         // Ajax Call
         $.ajax({
             type: "POST",
-            url: "condicionCreciente",
+            url: "aplicarMetodologia",
             data: json,
             dataType: "json",
             success : function() {
-                $("#status").text("Condicion creada exitosamente");
+                $("#status").text("Metodologia creada, ahora agregue condiciones");
                 this_.find('input,select').val('');
             },
             error : function(e) {
