@@ -172,7 +172,7 @@ public class MainClass {
 		get("/condicionCreciente", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
-			 viewObjects.put("indicadores", mod.sendNomInd());
+			viewObjects.put("indicadores", mod.sendNomInd());
 			viewObjects.put("templateName", "condicionCreciente.ftl");
 
 			return new ModelAndView(viewObjects, "main.ftl");

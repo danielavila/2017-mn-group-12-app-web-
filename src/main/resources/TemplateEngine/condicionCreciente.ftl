@@ -5,10 +5,20 @@
       <label for="anios">Ingrese los anios </label>
       <input type="text" class="form-control" id="anios" name="anios" placeholder="anios">
     </div>
-   <div class="form-group">
-      <label for="nombreIndicador">Ingrese el indicador </label>
-      <input type="text" class="form-control" id="nombreIndicador" name="nombreIndicador" placeholder="debe comenzar con i_">
-    </div>
+  
+
+  <div class="form-group">
+	<select nombreIndicador="nombreIndicador">
+		<ul>
+    <#list indicadores as nombreIndicador>
+        <li><option value=${nombreIndicador}> ${nombreIndicador} </option></li>        
+    </#list>
+		</ul> 
+			</select>
+		<button nombreIndicador="nombreIndicador">Seleccionar Indicador</button>
+		
+			</div>
+
 		<div class="form-group">
 		
     <button type="submit" class="btn btn-default">Crear condicion</button>
@@ -20,7 +30,17 @@
        </div>
   </form>
 
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        var newUrl = "";
+        $("#picksite").change(function() {
+            $newUrl = $("#picksite option:selected").val();
+        });
+        $("#executelink").click(function() {
+            location = $newUrl ;
+        });
+    });
+</script>
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>
 $(function() {
