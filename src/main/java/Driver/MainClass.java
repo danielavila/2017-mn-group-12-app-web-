@@ -27,6 +27,9 @@ import User.MetodologiaWeb;
 import User.SumaPromMedianaWeb;
 import ar.edu.utn.dds.entidades.Empresas;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
+import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
+import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaException;
+import ar.edu.utn.dds.excepciones.NoSeEncuentraLaEmpresaException;
 import ar.edu.utn.dds.modelo.Empresa;
 import spark.ModelAndView;
 
@@ -307,6 +310,18 @@ public class MainClass {
 			} catch (JsonParseException jpe) {
 				response.status(404);
 				return "Exception";
+			} catch (NoSeEncuentraElIndicadorException e) {
+				response.status(404);
+				return "No se encuentra Indicador";
+			} catch (NoSeEncuentraLaCuentaEnElPeriodoException e) {
+				response.status(404);
+				return "No se encuentra la cuenta en el periodo";
+			} catch (NoSeEncuentraLaCuentaException e) {
+				response.status(404);
+				return "No se encuentra la cuenta";
+			} catch (NoSeEncuentraLaEmpresaException e) {
+				response.status(404);
+				return "No se encuentra la empresa";
 			}
 		});
 

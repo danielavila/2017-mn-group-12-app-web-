@@ -10,6 +10,15 @@
       <label for="empresa">Nombre empresa</label>
       <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Nombre">
     </div>
+    
+    
+    <div class="container">
+    <input type="checkbox" /> Facebook <br />
+    <input type="checkbox" /> Pepsi <br />
+    <input type="checkbox" /> CocaCola <br />
+    <input type="checkbox" /> Twitter <br />
+ 
+</div>
 
    <div class="form-group">
       <button type="submit" class="btn btn-default">Agregar empresa</button>
