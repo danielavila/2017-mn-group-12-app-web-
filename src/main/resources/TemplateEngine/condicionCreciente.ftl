@@ -8,21 +8,22 @@
   
 
   <div class="form-group">
-	<select nombreIndicador="nombreIndicador">
+ 
+
+<label >Seleccione el indicador </label>
+
+	<select id="elegirIndicador" name="nombreIndicador">
 		<ul>
-    <#list indicadores as nombreIndicador>
-        <li><option value=${nombreIndicador}> ${nombreIndicador} </option></li>        
+    <#list indicadores as indicador>
+        <li><option value=${indicador.nombre}> ${indicador.nombre} </option></li>        
     </#list>
 		</ul> 
 			</select>
-		<button nombreIndicador="nombreIndicador">Seleccionar Indicador</button>
 		
 			</div>
-
-		<div class="form-group">
-		
-    <button type="submit" class="btn btn-default">Crear condicion</button>
-    </div>
+<div class="form-group">
+<button id="seleccionarIndicador">Crear Condicion</button>
+		 </div>
     <div class="form-group">
        <#assign var_link = "http://localhost:4567/crearMetodologia">
 
@@ -32,12 +33,19 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        var newUrl = "";
-        $("#picksite").change(function() {
-            $newUrl = $("#picksite option:selected").val();
+        var  id = "";
+        $("#elegirIndicador").change(function() {
+            $id=$("#elegirIndicador option:selected").val();
         });
-        $("#executelink").click(function() {
-            location = $newUrl ;
+        $("#seleccionarIndicador").click(function() {
+       <p id="status"></p>
+           <form action="" method="POST" role="form">
+    <div class="form-group">
+      <label for="nombreIndicador"> </label>
+      <input type="text" class="form-control" id=id name="nombreIndicador" placeholder="">
+    </div>
+    </form>
+    
         });
     });
 </script>

@@ -1,18 +1,12 @@
 package User;
 
 public class IndicadorWeb implements Validable {
-	private String id;
+	
 
 	private String nombre;
 	private String expresion;
 
-	public String getId() {
-		return id;
-	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -32,14 +26,13 @@ public class IndicadorWeb implements Validable {
 
 	@Override
 	public boolean isValid() {
-		if (id == null || nombre == null || expresion == null)
+		if ( nombre == null || expresion == null)
 			return false;
-		if (id.isEmpty() || nombre.isEmpty() || expresion.isEmpty())
+		if ( nombre.isEmpty() || expresion.isEmpty())
 			return false;
-
-		if (id.length() > 8) {
+		if ( !nombre.startsWith("i_"))
 			return false;
-		}
+		
 		return true;
 	}
 

@@ -4,10 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.script.ScriptException;
 
@@ -26,6 +24,7 @@ import ar.edu.utn.dds.modelo.Decreciente;
 import ar.edu.utn.dds.modelo.Empresa;
 import ar.edu.utn.dds.modelo.Filtro;
 import ar.edu.utn.dds.modelo.FiltroSegunEcuacion;
+import ar.edu.utn.dds.modelo.Indicador;
 import ar.edu.utn.dds.modelo.Longevidad;
 import ar.edu.utn.dds.modelo.Mediana;
 import ar.edu.utn.dds.modelo.Metodologia;
@@ -39,9 +38,10 @@ import ar.edu.utn.dds.modelo.Traductor;
 
 public class Model {
 
-	private Map<String, Object> empresa;
+	private Map<String, Object> empresas;
+
 	private Map<String, Object> cuenta;
-	private Map<String, Object> indicador;
+	private Map<String, Object> indicadores;
 
 	private Metodologia meto;
 	private Traductor t = new Traductor();
@@ -53,21 +53,24 @@ public class Model {
 		Empresas.setEmpresas();
 		Indicadores.setIndicadores();
 		t.cargarTraductor();
-		this.empresa = new HashMap<>();
+		this.empresas = new HashMap<>();
 		this.cuenta = new HashMap<>();
-		this.indicador = new HashMap<>();
+		this.indicadores = new HashMap<>();
+		
+		Indicadores.getIndicadores().stream().forEach(unI->indicadores.put(String.valueOf(unI.getId()), unI));
+		
+		
 	this.meto = new Metodologia();
 	}
 
 
 	/// CREATES
 
-	public int createIndicador(String id, String nombre, String expresion) {
-		TablaIndicador ind = new TablaIndicador();
-		ind.setId(id);
-		ind.setNombre(nombre);
-		ind.setExpresion(expresion);
-		indicador.put(id, ind);
+	public int createIndicador(String nombre, String expresion) {
+
+		Indicador indicadorApersistir = new Indicador(nombre,expresion);
+		Indicadores.persistirIndicador(indicadorApersistir);
+		indicadores.put(String.valueOf(indicadorApersistir.getId()), indicadorApersistir);
 		return 1;
 	}
 
@@ -85,13 +88,13 @@ public class Model {
 		return 1;
 	}
 
-	public int createCondicionCreciente(String nombreInd, String anios) throws NoSeEncuentraElIndicadorException {
+	public int createCondicionCreciente(String nombre, String anios) throws NoSeEncuentraElIndicadorException {
 		Creciente cre;
-
-		cre = new Creciente(t.buscarIndicador(nombreInd), t);
-
+		cre = new Creciente(t.buscarIndicador(nombre), t);
 		Condicion condcre = new Filtro(cre, Integer.valueOf(anios));
 		meto.agregarCondicion(condcre);
+		
+		
 
 		return 1;
 	}
@@ -140,7 +143,7 @@ public class Model {
 	/////// GETS
 	public void getEmpresas() {
 
-		Empresas.getEmpresas().forEach(unaE -> {
+			Empresas.getEmpresas().forEach(unaE -> {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
 			TablaEmpresa te = new TablaEmpresa();
 			String id = String.valueOf(unaE.getId());
@@ -148,7 +151,9 @@ public class Model {
 			te.setNombre(unaE.getNombre());
 			te.setFechaInscripcion(unaE.getFechaInscripcion().format(formatter));
 
-			empresa.put(id, te);
+			empresas.put(id, te);
+			
+			
 		});
 
 	}
@@ -182,16 +187,7 @@ public class Model {
 		return true;
 	}
 
-	public boolean checkIndicador(String id) {
-		Iterator<Map.Entry<String, Object>> it = indicador.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry<String, Object> pair = it.next();
-			TablaIndicador i = (TablaIndicador) pair.getValue();
-			if ((i.getId().equals(id)))
-				return false;
-		}
-		return true;
-	}
+
 
 	// FUNCIONES
 
@@ -211,12 +207,13 @@ public class Model {
 	//// SENDS
 
 	public List<Object> sendEmpresas() {
-		List<Object> ret = new ArrayList<>(empresa.values());
+		List<Object> ret = new ArrayList<>(empresas.values());
 		return ret;
 	}
 
+
 	public List<Object> sendEmpresasID() {
-		List<Object> ret = new ArrayList<>(empresa.keySet());
+		List<Object> ret = new ArrayList<>(empresas.keySet());
 		return ret;
 	}
 
@@ -225,9 +222,12 @@ public class Model {
 		List<Object> ret = new ArrayList<>(cuenta.values());
 		return ret;
 	}
-	public List<Object> sendNomInd() {
-
+	public List<Object> sendIndicadores() {
 		
-		return Indicadores.getIndicadores().stream().map(unI->unI.getNombre()).collect(Collectors.toList());
+		
+		List<Object> ret = new ArrayList<>(indicadores.values());
+		return ret;
+		 
 	}
+
 }

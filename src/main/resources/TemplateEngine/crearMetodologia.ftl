@@ -4,7 +4,7 @@
   
     <div class="form-group">
       <label for="nombre">Nombre metodologia</label>
-      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-default">Crear metodologia</button>

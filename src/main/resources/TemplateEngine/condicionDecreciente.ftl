@@ -1,18 +1,26 @@
 <h2>Condicion Decreciente</h2>
    <p id="status"></p>
   <form action="" method="POST" role="form">
+  
     <div class="form-group">
       <label for="anios">Ingrese los anios </label>
       <input type="text" class="form-control" id="anios" name="anios" placeholder="anios">
     </div>
-    
      <div class="form-group">
-      <label for="nombreIndicador">Ingrese el indicador </label>
-      <input type="text" class="form-control" id="nombreIndicador" name="nombreIndicador" placeholder="debe comenzar con i_">
-    </div>
+     <label >Seleccione el indicador </label>
 
-    <button type="submit" class="btn btn-default">Crear condicion</button>
-    
+	<select id="elegirIndicador" name="nombreIndicador">
+		<ul>
+    <#list indicadores as indicador>
+        <li><option value=${indicador.nombre}> ${indicador.nombre} </option></li>        
+    </#list>
+		</ul> 
+			</select>
+		
+			</div>
+ <div class="form-group">
+    <button id="seleccionarIndicador">Crear Condicion</button>
+    </div>
     <div class="form-group">
        <#assign var_link = "http://localhost:4567/crearMetodologia">
 
@@ -20,7 +28,25 @@
        </div>
   </form>
 
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        var  id = "";
+        $("#elegirIndicador").change(function() {
+            $id=$("#elegirIndicador option:selected").val();
+        });
+        $("#seleccionarIndicador").click(function() {
+       <p id="status"></p>
+           <form action="" method="POST" role="form">
+    <div class="form-group">
+      <label for="nombreIndicador"> </label>
+      <input type="text" class="form-control" id=id name="nombreIndicador" placeholder="">
+    </div>
+    </form>
+      
+    
+        });
+    });
+</script>
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>
 $(function() {

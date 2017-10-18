@@ -26,10 +26,8 @@ import User.MetodologiaAplicable;
 import User.MetodologiaWeb;
 import User.SumaPromMedianaWeb;
 import ar.edu.utn.dds.entidades.Empresas;
-import ar.edu.utn.dds.entidades.Indicadores;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
 import ar.edu.utn.dds.modelo.Empresa;
-import ar.edu.utn.dds.modelo.Indicador;
 import spark.ModelAndView;
 
 public class MainClass {
@@ -40,11 +38,14 @@ public class MainClass {
 		s.init();
 	}
 
+
+
 	/**
 	 * Function for Routes
 	 */
 
 	private void init() {
+		
 		Model mod = new Model();
 
 		get("/", (request, response) -> {
@@ -57,6 +58,7 @@ public class MainClass {
 		get("/condicionMediana", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
 			viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
 		}, new FreeMarkerEngine());
@@ -86,6 +88,7 @@ public class MainClass {
 		get("/condicionPromedio", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
 			viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
 		}, new FreeMarkerEngine());
@@ -115,6 +118,7 @@ public class MainClass {
 		get("/condicionSumatoria", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
 			viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
 		}, new FreeMarkerEngine());
@@ -144,6 +148,7 @@ public class MainClass {
 		get("/condicionDecreciente", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
 			viewObjects.put("templateName", "condicionDecreciente.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
 		}, new FreeMarkerEngine());
@@ -152,8 +157,9 @@ public class MainClass {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
 				DecrecienteWeb decreciente = mapper.readValue(request.body(), DecrecienteWeb.class);
-
+				
 				mod.createCondicionDecreciente(decreciente.getNombreIndicador(), decreciente.getAnios());
+				
 
 				response.status(200);
 				response.type("application/json");
@@ -165,14 +171,14 @@ public class MainClass {
 				return "Exception";
 			} catch (NoSeEncuentraElIndicadorException e) {
 				e.printStackTrace();
-				return "Exception";
+				return "No se encuentra el indicador";
 			}
 		});
 
 		get("/condicionCreciente", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
-			viewObjects.put("indicadores", mod.sendNomInd());
+			viewObjects.put("indicadores", mod.sendIndicadores());
 			viewObjects.put("templateName", "condicionCreciente.ftl");
 
 			return new ModelAndView(viewObjects, "main.ftl");
@@ -181,7 +187,8 @@ public class MainClass {
 		post("/condicionCreciente", (request, response) -> {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				CrecienteWeb creciente = mapper.readValue(request.body(), CrecienteWeb.class);
+        		CrecienteWeb creciente = mapper.readValue(request.body(), CrecienteWeb.class);
+
 				mod.createCondicionCreciente(creciente.getNombreIndicador(), creciente.getAnios());
 				response.status(200);
 				response.type("application/json");
@@ -192,9 +199,10 @@ public class MainClass {
 				return "Exception";
 			} catch (NoSeEncuentraElIndicadorException e) {
 				e.printStackTrace();
-				return "Exception";
+				return "No se encontro el indicador";
 			}
 		});
+		
 
 		get("/condicionLongevidad", (request, response) -> {
 			response.status(200);
@@ -273,6 +281,7 @@ public class MainClass {
 		get("/calcularIndicador", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("empresas", mod.sendEmpresas());
 			viewObjects.put("templateName", "calcularIndicador.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
 		}, new FreeMarkerEngine());
@@ -315,19 +324,12 @@ public class MainClass {
 				if (!i.isValid()) {
 					response.status(400);
 					return "Corregir los campos";
-				}
-				if (mod.checkIndicador(i.getId())) {
-					int id = mod.createIndicador(i.getId(), i.getNombre(), i.getExpresion());
-					Indicador indicadorApersistir = new Indicador(i.getNombre(), i.getExpresion());
-					Indicadores.persistirIndicador(indicadorApersistir);
+				}			
+					mod.createIndicador(i.getNombre(), i.getExpresion());			
 					response.status(200);
 					response.type("application/json");
-					return id;
-				} else {
-					response.status(400);
-					response.type("application/json");
-					return "Ya existe el indicador";
-				}
+					return "Indicador creado";
+				
 			} catch (JsonParseException jpe) {
 				response.status(404);
 				return "Exception";
@@ -338,6 +340,7 @@ public class MainClass {
 			response.status(200);
 			mod.getEmpresas();
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("empresas", mod.sendEmpresas());
 			viewObjects.put("templateName", "mostrarEmpresa.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
 		}, new FreeMarkerEngine());

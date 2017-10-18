@@ -2,9 +2,18 @@
    <p id="status"></p>
   <form action="" method="POST" role="form">
     <div class="form-group">
-      <label for="nombreEmpresa">Empresa </label>
-      <input type="text" class="form-control" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre de Empresa">
-    </div>
+    <label >Seleccione la empresa </label>
+
+	<select id="elegirEmpresa" name="nombreEmpresa">
+		<ul>
+    <#list empresas as empresa>
+        <li><option value=${empresa.nombre}> ${empresa.nombre} </option></li>        
+    </#list>
+		</ul> 
+			</select>
+		
+			</div>
+
     <div class="form-group">
       <label for="fechaInicio">Fecha inicio del periodo</label>
       <input type="text" class="form-control" id="fechaInicio" name="fechaInicio" placeholder="Ingrese fecha inicio del periodo dd/mm/aaaa">
@@ -18,9 +27,29 @@
    <label for="indicadores">Seleccione el indicador</label>
     <input type="text" class="form-control" id="nombreIndicador" name="nombreIndicador" placeholder="Ingrese el nombre del indicador (comienza con i_)">
     	</div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <div class="form-group">
+<button id="calcular">Calcular</button>
+		 </div>
   </form>
-
+  
+<script type="text/javascript">
+    $(document).ready(function() {
+        var  id = "";
+        $("#elegirEmpresa").change(function() {
+            $id=$("#elegirEmpresa option:selected").val();
+        });
+        $("#calcular").click(function() {
+       <p id="status"></p>
+           <form action="" method="POST" role="form">
+    <div class="form-group">
+      <label for="nombreEmpresa"> </label>
+      <input type="text" class="form-control" id=id name="nombreEmpresa" placeholder="">
+    </div>
+    </form>
+    
+        });
+    });
+</script>
 
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>

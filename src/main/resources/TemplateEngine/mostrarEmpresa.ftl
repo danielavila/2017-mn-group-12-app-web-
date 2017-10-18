@@ -34,13 +34,28 @@
  			
 		});
 	
-	</script>
+		</script>
 	
-	<script type="text/javascript">
+	
+
+<select id="picksite">
+<ul>
+    <#list empresas as empresa>
+        <li><option value=${empresa.id}> ${empresa.nombre} </option></li>        
+    </#list>
+
+</select>
+
+<button id="executelink">Ir a las cuentas</button>
+	
+	
+
+		<script type="text/javascript">
     $(document).ready(function() {
         var newUrl = "";
         $("#picksite").change(function() {
-            $newUrl = $("#picksite option:selected").val();
+        var id=$("#picksite option:selected").val();
+            $newUrl = "http://localhost:4567/getCuentas/"+id ;
         });
         $("#executelink").click(function() {
             location = $newUrl ;
@@ -48,15 +63,7 @@
     });
 </script>
 
-<select id="picksite">
-    <option value="">Seleccione la empresa </option>
-    <option value="http://localhost:4567/getCuentas/38">Pepsico</option>
-    <option value="http://localhost:4567/getCuentas/28">Twitter</option>
-    <option value="http://localhost:4567/getCuentas/19">CocaCola</option>
-    <option value="http://localhost:4567/getCuentas/10">Facebook</option>
-</select>
 
-<button id="executelink">Ir a las cuentas</button>
 	
 	
 	

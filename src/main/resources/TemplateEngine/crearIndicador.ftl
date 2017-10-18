@@ -1,9 +1,7 @@
 <h2>Crear Indicador</h2>
    <p id="status"></p>
   <form action="" method="POST" role="form">
-  <div class="form-group">
-      <label for="id">ID indicador</label>
-      <input type="text" class="form-control" id="id" name="id" placeholder="Ingrese un id para el indicador (menos de 8 caracteres)">
+ 
     <div class="form-group">
       <label for="nombre">Nombre </label>
       <input type="text" class="form-control" id="nombre" name="nombre" placeholder="debe comenzar con i_">
