@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.PersistenceException;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -25,6 +27,7 @@ import User.LongevidadWeb;
 import User.MetodologiaAplicable;
 import User.MetodologiaWeb;
 import User.SumaPromMedianaWeb;
+import ar.edu.utn.dds.excepciones.MetodologiaYaExisteException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaException;
@@ -281,6 +284,12 @@ System.out.println(metodologia.getEmpresas());
 			} catch (JsonParseException jpe) {
 				response.status(404);
 				return "Exception";
+			} catch (MetodologiaYaExisteException e) {
+				response.status(403);
+				return "Ya existe una metodologia con ese nombre";
+			} catch (PersistenceException e) {
+				response.status(403);
+				return "Ya existe una metodologia con ese nombre";
 			}
 		});
 
@@ -302,9 +311,8 @@ System.out.println(metodologia.getEmpresas());
 					String resultado = mod.calcularIndicador(i, mod.armarPeriodo(i.getFechaInicio(), i.getFechaFin()));
 					response.status(200);
 					response.type("application/json");
-					System.out.println(resultado);
+					return "Resultado: " + resultado;
 
-					return resultado;
 				} else {
 					response.status(400);
 					response.type("application/json");

@@ -7,17 +7,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.PersistenceException;
 import javax.script.ScriptException;
 
 import User.IndicadorCalculable;
 import ar.edu.utn.dds.entidades.Empresas;
 import ar.edu.utn.dds.entidades.Indicadores;
+import ar.edu.utn.dds.entidades.Metodologias;
+import ar.edu.utn.dds.excepciones.MetodologiaYaExisteException;
 import ar.edu.utn.dds.excepciones.NoHayEmpresasQueCumplanLaCondicionException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaEmpresaException;
 import ar.edu.utn.dds.excepciones.NoSePudoOrdenarLaCondicionException;
+import ar.edu.utn.dds.interfazGrafica.TiposDeCondicion;
 import ar.edu.utn.dds.modelo.Condicion;
 import ar.edu.utn.dds.modelo.Creciente;
 import ar.edu.utn.dds.modelo.Decreciente;
@@ -46,6 +50,7 @@ public class Model {
 	private Metodologia meto;
 	private Traductor t = new Traductor();
 
+	
 	/**
 	 * Constructor
 	 */
@@ -74,17 +79,18 @@ public class Model {
 		return 1;
 	}
 
-	public int createMetodologia(String nombre) {
-
+	public int createMetodologia(String nombre) throws MetodologiaYaExisteException, PersistenceException { 
 		meto.setNombre(nombre);
+		Metodologias.persistirMetodologia(meto);
 		return 1;
+		 
 	}
 
-	public int createCondicionLongevidad(String anios) {
+	public int createCondicionLongevidad (String anios) {
 		Longevidad lon = new Longevidad(t);
 		Condicion cond = new Filtro(lon, Integer.parseInt(anios));
 		meto.agregarCondicion(cond);
-
+		Metodologias.persistirCrecienteoDecrecienteoLongevidad(meto, lon, cond);
 		return 1;
 	}
 
@@ -93,7 +99,7 @@ public class Model {
 		cre = new Creciente(t.buscarIndicador(nombre), t);
 		Condicion condcre = new Filtro(cre, Integer.valueOf(anios));
 		meto.agregarCondicion(condcre);
-		
+		Metodologias.persistirCrecienteoDecrecienteoLongevidad(meto, cre, condcre);
 		
 
 		return 1;
@@ -106,7 +112,7 @@ public class Model {
 
 		Condicion condDecre = new Filtro(decre, Integer.valueOf(anios));
 		meto.agregarCondicion(condDecre);
-
+		Metodologias.persistirCrecienteoDecrecienteoLongevidad(meto, decre, condDecre);
 		return 1;
 	}
 	public int createCondicionSumaPromeMediana(String tipo,String nombreInd, String comparador,String valorAcomparar, String ordenamiento,Periodo periodo) throws NoSeEncuentraElIndicadorException {
@@ -116,17 +122,20 @@ public class Model {
 			Sumatoria sum = new Sumatoria(t.buscarIndicador(nombreInd), t);
 		 cond1 = new FiltroSegunEcuacion(sum, Integer.valueOf(valorAcomparar), comparador, periodo);
 		 cond2 = new OrdenaAplicandoCriterioOrdenamiento(sum, periodo, ordenamiento);
+		 Metodologias.persistirMedianaOsumatoriaOPromedio(meto, sum, valorAcomparar, comparador, periodo, ordenamiento);
 		}
 		else {
 			if (tipo.equals("promedio")) {
 				Promedio promedio =new Promedio(t.buscarIndicador(nombreInd), t);
 				 cond1 = new FiltroSegunEcuacion(promedio, Integer.valueOf(valorAcomparar), comparador, periodo);
 				 cond2 = new OrdenaAplicandoCriterioOrdenamiento(promedio, periodo, ordenamiento);
+				 Metodologias.persistirMedianaOsumatoriaOPromedio(meto, promedio, valorAcomparar, comparador, periodo, ordenamiento);
 			}
 			else {
 				Mediana mediana= new Mediana(t.buscarIndicador(nombreInd), t);
 				 cond1 = new FiltroSegunEcuacion(mediana, Integer.valueOf(valorAcomparar), comparador, periodo);
 				 cond2 = new OrdenaAplicandoCriterioOrdenamiento(mediana, periodo, ordenamiento);
+				 Metodologias.persistirMedianaOsumatoriaOPromedio(meto, mediana, valorAcomparar, comparador, periodo, ordenamiento);
 			}
 		}
 		
