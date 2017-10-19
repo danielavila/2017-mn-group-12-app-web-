@@ -1,8 +1,10 @@
 package User;
 
-public class MetodologiaAplicable {
+public class MetodologiaAplicable{
+
 	private String nombre;
-	private String empresa;
+	private String empresas;
+
 
 	public String getNombre() {
 		return nombre;
@@ -12,12 +14,18 @@ public class MetodologiaAplicable {
 		this.nombre = nombre;
 	}
 
-	public String getEmpresa() {
-		return empresa;
+	public String getEmpresas() {
+		return empresas;
 	}
 
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
+	public void setEmpresas(String empresas) {
+		this.empresas = empresas;
 	}
+
+
+
+	
+
+	
 
 }

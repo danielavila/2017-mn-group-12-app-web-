@@ -25,16 +25,14 @@ import User.LongevidadWeb;
 import User.MetodologiaAplicable;
 import User.MetodologiaWeb;
 import User.SumaPromMedianaWeb;
-import ar.edu.utn.dds.entidades.Empresas;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaEmpresaException;
-import ar.edu.utn.dds.modelo.Empresa;
 import spark.ModelAndView;
 
 public class MainClass {
-
+private List<String> empresas= new ArrayList<>();
 	public static void main(String[] args) {
 		staticFileLocation("/public");
 		MainClass s = new MainClass();
@@ -234,6 +232,7 @@ public class MainClass {
 		get("/aplicarMetodologia", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("empresas", mod.sendEmpresas());
 			viewObjects.put("templateName", "aplicarMetodologia.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
 		}, new FreeMarkerEngine());
@@ -241,10 +240,14 @@ public class MainClass {
 		post("/aplicarMetodologia", (request, response) -> {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
+				
 				MetodologiaAplicable metodologia = mapper.readValue(request.body(), MetodologiaAplicable.class);
-				List<Empresa> empresas= new ArrayList<Empresa>();
-				empresas.add(Empresas.getEmpresas().stream().filter(unaE->unaE.getNombre().equals(metodologia.getEmpresa())).findFirst().get());
-                 System.out.println(mod.aplicarMetodologia(metodologia.getNombre(),empresas));
+			
+				System.out.println(metodologia.getNombre());
+System.out.println(metodologia.getEmpresas());
+
+				//empresas.add(Empresas.getEmpresas().stream().filter(unaE->unaE.getNombre().equals(metodologia.getEmpresas())).findFirst().get());
+                 //System.out.println(mod.aplicarMetodologia(metodologia.getNombre(),empresas));
 				response.status(200);
 				response.type("application/json");
 

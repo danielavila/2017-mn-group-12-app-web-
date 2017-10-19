@@ -34,11 +34,12 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var  id = "";
+      
         $("#elegirIndicador").change(function() {
             $id=$("#elegirIndicador option:selected").val();
         });
         $("#seleccionarIndicador").click(function() {
-       <p id="status"></p>
+       <p id="status"> </p>
            <form action="" method="POST" role="form">
     <div class="form-group">
       <label for="nombreIndicador"> </label>

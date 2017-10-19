@@ -6,29 +6,58 @@
       <label for="nombre">Nombre metodologia</label>
       <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
     </div>
-    <div class="form-group">
-      <label for="empresa">Nombre empresa</label>
-      <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Nombre">
-    </div>
-    
-    
-    <div class="container">
-    <input type="checkbox" /> Facebook <br />
-    <input type="checkbox" /> Pepsi <br />
-    <input type="checkbox" /> CocaCola <br />
-    <input type="checkbox" /> Twitter <br />
- 
-</div>
+   
+<div class="form-group">
+<label >Seleccione las empresas </label>
 
-   <div class="form-group">
-      <button type="submit" class="btn btn-default">Agregar empresa</button>
-      </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-default">Aplicar metodologia</button>
-      </div>
+	
+		<ul>
+    <#list empresas as empresa>
+        <li><input type="checkbox" id="myCheck" name="empresas" value=${empresa.nombre}><br> ${empresa.nombre}
+        
+        </li>        
+    </#list>
+		</ul> 
+	
+		
+			</div>
+
+<div class="form-group">
+<button id="aplicarMetodologia">Aplicar Metodologia</button>
+		 </div>
  
   </form>
 
+
+<script>
+function getCheckedBoxes(chkboxName) {
+  var checkboxes = document.getElementsByName(chkboxName);
+  var checkboxesChecked = [];
+  // loop over them all
+  for (var i=0; i<checkboxes.length; i++) {
+     // And stick the checked ones onto an array...
+     if (checkboxes[i].checked) {
+        checkboxesChecked.push(checkboxes[i]);
+     }
+  }
+  // Return the array if it is non-empty, or null
+  return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+}
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var action = new Array();
+        $("#aplicarMetodologia").click(function() {
+      action =  $('input[name="empresas"]:checked').serialize();
+        alert(action);
+      console.log(action);
+
+      
+    
+        });
+    });
+</script>
 
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>
