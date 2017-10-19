@@ -35,21 +35,20 @@ import ar.edu.utn.dds.excepciones.NoSeEncuentraLaEmpresaException;
 import spark.ModelAndView;
 
 public class MainClass {
-private List<String> empresas= new ArrayList<>();
+	private List<String> empresas = new ArrayList<>();
+
 	public static void main(String[] args) {
 		staticFileLocation("/public");
 		MainClass s = new MainClass();
 		s.init();
 	}
 
-
-
 	/**
 	 * Function for Routes
 	 */
 
 	private void init() {
-		
+
 		Model mod = new Model();
 
 		get("/", (request, response) -> {
@@ -161,9 +160,8 @@ private List<String> empresas= new ArrayList<>();
 			ObjectMapper mapper = new ObjectMapper();
 			try {
 				DecrecienteWeb decreciente = mapper.readValue(request.body(), DecrecienteWeb.class);
-				
+
 				mod.createCondicionDecreciente(decreciente.getNombreIndicador(), decreciente.getAnios());
-				
 
 				response.status(200);
 				response.type("application/json");
@@ -191,7 +189,7 @@ private List<String> empresas= new ArrayList<>();
 		post("/condicionCreciente", (request, response) -> {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-        		CrecienteWeb creciente = mapper.readValue(request.body(), CrecienteWeb.class);
+				CrecienteWeb creciente = mapper.readValue(request.body(), CrecienteWeb.class);
 
 				mod.createCondicionCreciente(creciente.getNombreIndicador(), creciente.getAnios());
 				response.status(200);
@@ -206,7 +204,6 @@ private List<String> empresas= new ArrayList<>();
 				return "No se encontro el indicador";
 			}
 		});
-		
 
 		get("/condicionLongevidad", (request, response) -> {
 			response.status(200);
@@ -236,6 +233,7 @@ private List<String> empresas= new ArrayList<>();
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
 			viewObjects.put("empresas", mod.sendEmpresas());
+			viewObjects.put("metodologias", mod.sendMetodologias());
 			viewObjects.put("templateName", "aplicarMetodologia.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
 		}, new FreeMarkerEngine());
@@ -243,14 +241,14 @@ private List<String> empresas= new ArrayList<>();
 		post("/aplicarMetodologia", (request, response) -> {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				
-				MetodologiaAplicable metodologia = mapper.readValue(request.body(), MetodologiaAplicable.class);
-			
-				System.out.println(metodologia.getNombre());
-System.out.println(metodologia.getEmpresas());
 
-				//empresas.add(Empresas.getEmpresas().stream().filter(unaE->unaE.getNombre().equals(metodologia.getEmpresas())).findFirst().get());
-                 //System.out.println(mod.aplicarMetodologia(metodologia.getNombre(),empresas));
+				MetodologiaAplicable metodologia = mapper.readValue(request.body(), MetodologiaAplicable.class);
+
+				System.out.println(metodologia.getNombre());
+				System.out.println(metodologia.getEmpresas());
+
+				// empresas.add(Empresas.getEmpresas().stream().filter(unaE->unaE.getNombre().equals(metodologia.getEmpresas())).findFirst().get());
+				// System.out.println(mod.aplicarMetodologia(metodologia.getNombre(),empresas));
 				response.status(200);
 				response.type("application/json");
 
@@ -261,7 +259,6 @@ System.out.println(metodologia.getEmpresas());
 				return "Exception";
 			}
 		});
-
 
 		get("/crearMetodologia", (request, response) -> {
 			response.status(200);
@@ -350,12 +347,12 @@ System.out.println(metodologia.getEmpresas());
 				if (!i.isValid()) {
 					response.status(400);
 					return "Corregir los campos";
-				}			
-					mod.createIndicador(i.getNombre(), i.getExpresion());			
-					response.status(200);
-					response.type("application/json");
-					return "Indicador creado";
-				
+				}
+				mod.createIndicador(i.getNombre(), i.getExpresion());
+				response.status(200);
+				response.type("application/json");
+				return "Indicador creado";
+
 			} catch (JsonParseException jpe) {
 				response.status(404);
 				return "Exception";

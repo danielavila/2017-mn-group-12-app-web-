@@ -43,7 +43,7 @@ import ar.edu.utn.dds.modelo.Traductor;
 public class Model {
 
 	private Map<String, Object> empresas;
-
+	private Map<String, Object> metodologias;
 	private Map<String, Object> cuenta;
 	private Map<String, Object> indicadores;
 
@@ -61,9 +61,9 @@ public class Model {
 		this.empresas = new HashMap<>();
 		this.cuenta = new HashMap<>();
 		this.indicadores = new HashMap<>();
-		
+		this.metodologias = new HashMap<>();
 		Indicadores.getIndicadores().stream().forEach(unI->indicadores.put(String.valueOf(unI.getId()), unI));
-		
+		Metodologias.getMetodologias().stream().forEach(unaM->metodologias.put(String.valueOf(unaM.getId()), unaM));
 		
 	this.meto = new Metodologia();
 	}
@@ -237,6 +237,11 @@ public class Model {
 		List<Object> ret = new ArrayList<>(indicadores.values());
 		return ret;
 		 
+	}
+	
+	public List<Object> sendMetodologias(){
+		List<Object> ret = new ArrayList<>(metodologias.values());
+		return ret;
 	}
 
 }

@@ -2,6 +2,20 @@
    <p id="status"></p>
   <form action="" method="POST" role="form">
   
+  
+      <div class="form-group">
+    <label >Seleccione la Metodologia </label>
+
+	<select id="elegirMetodologia" name="nombreMetodologia">
+		<ul>
+    <#list metodologias as metodologias>
+        <li><option value=${metodologia.nombre}> ${metodologia.nombre} </option></li>        
+    </#list>
+		</ul> 
+			</select>
+		
+			</div>
+  
     <div class="form-group">
       <label for="nombre">Nombre metodologia</label>
       <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
@@ -54,6 +68,25 @@ function getCheckedBoxes(chkboxName) {
       console.log(action);
 
       
+    
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var  id = "";
+        $("#elegirMetodologia").change(function() {
+            $id=$("#elegirMetodologia option:selected").val();
+        });
+        $("#aplicar").click(function() {
+       <p id="status"></p>
+           <form action="" method="POST" role="form">
+    <div class="form-group">
+      <label for="nombreMetodologia"> </label>
+      <input type="text" class="form-control" id=id name="nombreMetodologia" placeholder="">
+    </div>
+    </form>
     
         });
     });
