@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/starter-template.css">
     </head>
+    
     <body>
 
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -25,7 +26,8 @@
                          <li><a href="crearIndicador">Crear indicador</a></li>
                           <li><a href="calcularIndicador">Calcular indicador</a></li>
                           <li><a href="crearMetodologia">Crear metodologia</a></li>   
-                          <li><a href="aplicarMetodologia">Aplicar metodologia</a></li>                     
+                          <li><a href="aplicarMetodologia">Aplicar metodologia</a></li>  
+                         
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

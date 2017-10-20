@@ -6,9 +6,9 @@
       <div class="form-group">
     <label >Seleccione la Metodologia </label>
 
-	<select id="elegirMetodologia" name="nombreMetodologia">
+	<select id="elegirMetodologia" name="nombre">
 		<ul>
-    <#list metodologias as metodologias>
+    <#list metodologias as metodologia>
         <li><option value=${metodologia.nombre}> ${metodologia.nombre} </option></li>        
     </#list>
 		</ul> 
@@ -16,10 +16,7 @@
 		
 			</div>
   
-    <div class="form-group">
-      <label for="nombre">Nombre metodologia</label>
-      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-    </div>
+
    
 <div class="form-group">
 <label >Seleccione las empresas </label>
@@ -30,9 +27,7 @@
        <input type="checkbox" id="myCheck" name="empresa2" value="Pepsico">Pepsico<br> 
        <input type="checkbox" id="myCheck" name="empresa3" value="CocaCola">CocaCola<br> 
        <input type="checkbox" id="myCheck" name="empresa4" value="Twitter">Twitter<br> 
-       
-  
-	
+
 		
 		
    <input type="submit" value="Aplicar Metodologia">

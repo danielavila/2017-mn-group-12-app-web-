@@ -56,6 +56,7 @@ public class Model {
 	public Model() {
 		Empresas.setEmpresas();
 		Indicadores.setIndicadores();
+		Metodologias.setMetodologias();
 		t.cargarTraductor();
 		this.empresas = new HashMap<>();
 		this.cuenta = new HashMap<>();
@@ -80,6 +81,7 @@ public class Model {
 
 	public int createMetodologia(String nombre) throws MetodologiaYaExisteException, PersistenceException { 
 		meto.setNombre(nombre);
+		System.out.println(nombre);
 		Metodologias.persistirMetodologia(meto);
 		return 1;
 		 
@@ -143,7 +145,11 @@ public class Model {
 		return 1;
 	}
 	public ArrayList<PuntajeEmpresa> aplicarMetodologia(String nombre,List<Empresa> empresas) throws NoHayEmpresasQueCumplanLaCondicionException, NoSeEncuentraLaEmpresaException, ScriptException, NoSePudoOrdenarLaCondicionException, NoSeEncuentraLaCuentaException, NoSeEncuentraLaCuentaEnElPeriodoException, NoSeEncuentraElIndicadorException {
-	return meto.aplicarMetodologia(empresas);
+	Metodologia metodologiaAaplicar=Metodologias.getMetodologias().stream().filter(unaM->unaM.getNombre().equals(nombre)).findFirst().get();
+	metodologiaAaplicar.getCondicionesDeMetodologia().stream().forEach(unC -> {
+		unC.getLadoIzq().setTraductor(t);
+	});
+		return metodologiaAaplicar.aplicarMetodologia(empresas);
 		
 		
 	}

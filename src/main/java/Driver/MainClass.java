@@ -206,8 +206,9 @@ public class MainClass {
 				return "No se encontro el indicador";
 			}
 		});
+		
 
-		get("/condicionLongevidad", (request, response) -> {
+		get("condicionLongevidad", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
 			viewObjects.put("templateName", "condicionLongevidad.ftl");
@@ -245,7 +246,7 @@ public class MainClass {
 			try {
 
 				MetodologiaAplicable metodologia = mapper.readValue(request.body(), MetodologiaAplicable.class);
-List<String> nombreEmpresas=new ArrayList<>();
+				List<String> nombreEmpresas=new ArrayList<>();
 				nombreEmpresas.add(metodologia.getEmpresa1());
 				nombreEmpresas.add(metodologia.getEmpresa2());
 				nombreEmpresas.add(metodologia.getEmpresa3());
@@ -267,7 +268,9 @@ List<String> nombreEmpresas=new ArrayList<>();
 				return "Exception";
 			}
 		});
-
+		
+		
+		
 		get("/crearMetodologia", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();

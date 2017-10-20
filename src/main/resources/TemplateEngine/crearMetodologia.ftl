@@ -9,7 +9,9 @@
     <div class="form-group">
       <button type="submit" class="btn btn-default">Crear metodologia</button>
       </div>
-    <div class="form-group">
+      
+      
+       <div class="form-group">
    <select id="picksite">
     <option value="">Agregue Condiciones</option>
     <option value="http://localhost:4567/condicionLongevidad">Longevidad</option>
@@ -22,11 +24,30 @@
 
 <button id="executelink">Agregar condicion</button>
        </div>
+      
+      
+      <div class="form-group">
+       <#assign var_link = "http://localhost:4567/crearMetodologia">
+
+<a href="${var_link}">Volver al menu metodologia</a>
+       </div>
+ 
+    
        
   
   </form>
 
-
+   <script type="text/javascript">
+    $(document).ready(function() {
+        var newUrl = "";
+        $("#picksite").change(function() {
+            $newUrl = $("#picksite option:selected").val();
+        });
+        $("#executelink").click(function() {
+            location = $newUrl ;
+        });
+    });
+</script>
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>
 $(function() {

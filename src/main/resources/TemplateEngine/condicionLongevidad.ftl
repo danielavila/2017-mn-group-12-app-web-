@@ -14,8 +14,7 @@
 <a href="${var_link}">Volver al menu metodologia</a>
        </div>
   </form>
-
-
+ 
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>
 $(function() {
