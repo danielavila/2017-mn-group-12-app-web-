@@ -31,6 +31,8 @@ import User.SumaPromMedianaWeb;
 import ar.edu.utn.dds.entidades.Empresas;
 import ar.edu.utn.dds.modelo.Empresa;
 import ar.edu.utn.dds.excepciones.MetodologiaYaExisteException;
+import ar.edu.utn.dds.excepciones.NoHayCondicionesException;
+import ar.edu.utn.dds.excepciones.NoHayEmpresasQueCumplanLaCondicionException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaException;
@@ -257,15 +259,26 @@ public class MainClass {
 					empresas.add(Empresas.getEmpresas().stream().filter(unaE->unaE.getNombre().equals(unN)).findFirst().get());
 				});;
 				
-				System.out.println(mod.aplicarMetodologia(metodologia.getNombre(),empresas));
+				
+				List <String> lista = new ArrayList<String>();
+				(mod.aplicarMetodologia(metodologia.getNombre(),empresas)).forEach(unP -> {
+					lista.add(unP.getNombreEmpresa());
+				});;
+				String empresu = String.join("  ||  ", lista);
 				response.status(200);
 				response.type("application/json");
 
-				return "Metodologia aplicada";
+				return empresu;
 
 			} catch (JsonParseException jpe) {
 				response.status(404);
 				return "Exception";
+			} catch (NoHayEmpresasQueCumplanLaCondicionException e) {
+				response.status(200);
+				return "No hay empresas que cumplan con la metodologia";
+			} catch (NoHayCondicionesException e) {
+				response.status(200);
+				return "La metodologia no presenta condiciones";
 			}
 		});
 		

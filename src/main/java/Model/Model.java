@@ -149,6 +149,8 @@ public class Model {
 	metodologiaAaplicar.getCondicionesDeMetodologia().stream().forEach(unC -> {
 		unC.getLadoIzq().setTraductor(t);
 	});
+	
+		meto = new Metodologia();
 		return metodologiaAaplicar.aplicarMetodologia(empresas);
 		
 		
