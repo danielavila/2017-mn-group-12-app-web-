@@ -24,73 +24,28 @@
 <div class="form-group">
 <label >Seleccione las empresas </label>
 
-	
-		<ul>
-    <#list empresas as empresa>
-        <li><input type="checkbox" id="myCheck" name="empresas" value=${empresa.nombre}><br> ${empresa.nombre}
-        
-        </li>        
-    </#list>
-		</ul> 
+	<div class="form-group">
+		
+       <input type="checkbox" id="myCheck" name="empresa1" value="Facebook">Facebook<br> 
+       <input type="checkbox" id="myCheck" name="empresa2" value="Pepsico">Pepsico<br> 
+       <input type="checkbox" id="myCheck" name="empresa3" value="CocaCola">CocaCola<br> 
+       <input type="checkbox" id="myCheck" name="empresa4" value="Twitter">Twitter<br> 
+       
+  
 	
 		
-			</div>
+		
+   <input type="submit" value="Aplicar Metodologia">
+</div>
 
-<div class="form-group">
-<button id="aplicarMetodologia">Aplicar Metodologia</button>
-		 </div>
  
   </form>
 
 
-<script>
-function getCheckedBoxes(chkboxName) {
-  var checkboxes = document.getElementsByName(chkboxName);
-  var checkboxesChecked = [];
-  // loop over them all
-  for (var i=0; i<checkboxes.length; i++) {
-     // And stick the checked ones onto an array...
-     if (checkboxes[i].checked) {
-        checkboxesChecked.push(checkboxes[i]);
-     }
-  }
-  // Return the array if it is non-empty, or null
-  return checkboxesChecked.length > 0 ? checkboxesChecked : null;
-}
-</script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        var action = new Array();
-        $("#aplicarMetodologia").click(function() {
-      action =  $('input[name="empresas"]:checked').serialize();
-        alert(action);
-      console.log(action);
 
-      
-    
-        });
-    });
-</script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        var  id = "";
-        $("#elegirMetodologia").change(function() {
-            $id=$("#elegirMetodologia option:selected").val();
-        });
-        $("#aplicar").click(function() {
-       <p id="status"></p>
-           <form action="" method="POST" role="form">
-    <div class="form-group">
-      <label for="nombreMetodologia"> </label>
-      <input type="text" class="form-control" id=id name="nombreMetodologia" placeholder="">
-    </div>
-    </form>
-    
-        });
-    });
-</script>
+
 
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>

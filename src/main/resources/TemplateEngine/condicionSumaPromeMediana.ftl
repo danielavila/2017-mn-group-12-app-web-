@@ -54,13 +54,7 @@
             $id=$("#elegirIndicador option:selected").val();
         });
         $("#seleccionarIndicador").click(function() {
-       <p id="status"></p>
-           <form action="" method="POST" role="form">
-    <div class="form-group">
-      <label for="nombreIndicador"> </label>
-      <input type="text" class="form-control" id=id name="nombreIndicador" placeholder="">
-    </div>
-    </form>
+   
       
     
         });

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.PersistenceException;
 
@@ -27,6 +28,8 @@ import User.LongevidadWeb;
 import User.MetodologiaAplicable;
 import User.MetodologiaWeb;
 import User.SumaPromMedianaWeb;
+import ar.edu.utn.dds.entidades.Empresas;
+import ar.edu.utn.dds.modelo.Empresa;
 import ar.edu.utn.dds.excepciones.MetodologiaYaExisteException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
@@ -35,7 +38,6 @@ import ar.edu.utn.dds.excepciones.NoSeEncuentraLaEmpresaException;
 import spark.ModelAndView;
 
 public class MainClass {
-	private List<String> empresas = new ArrayList<>();
 
 	public static void main(String[] args) {
 		staticFileLocation("/public");
@@ -243,12 +245,18 @@ public class MainClass {
 			try {
 
 				MetodologiaAplicable metodologia = mapper.readValue(request.body(), MetodologiaAplicable.class);
-
-				System.out.println(metodologia.getNombre());
-				System.out.println(metodologia.getEmpresas());
-
-				// empresas.add(Empresas.getEmpresas().stream().filter(unaE->unaE.getNombre().equals(metodologia.getEmpresas())).findFirst().get());
-				// System.out.println(mod.aplicarMetodologia(metodologia.getNombre(),empresas));
+List<String> nombreEmpresas=new ArrayList<>();
+				nombreEmpresas.add(metodologia.getEmpresa1());
+				nombreEmpresas.add(metodologia.getEmpresa2());
+				nombreEmpresas.add(metodologia.getEmpresa3());
+				nombreEmpresas.add(metodologia.getEmpresa4());
+				
+				List<Empresa> empresas=new ArrayList<>();
+				nombreEmpresas.stream().filter(unN->unN!=null).collect(Collectors.toList()).stream().forEach(unN->{
+					empresas.add(Empresas.getEmpresas().stream().filter(unaE->unaE.getNombre().equals(unN)).findFirst().get());
+				});;
+				
+				System.out.println(mod.aplicarMetodologia(metodologia.getNombre(),empresas));
 				response.status(200);
 				response.type("application/json");
 

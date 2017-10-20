@@ -21,7 +21,6 @@ import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaEmpresaException;
 import ar.edu.utn.dds.excepciones.NoSePudoOrdenarLaCondicionException;
-import ar.edu.utn.dds.interfazGrafica.TiposDeCondicion;
 import ar.edu.utn.dds.modelo.Condicion;
 import ar.edu.utn.dds.modelo.Creciente;
 import ar.edu.utn.dds.modelo.Decreciente;
