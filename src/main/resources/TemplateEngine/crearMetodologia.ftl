@@ -26,11 +26,7 @@
        </div>
       
       
-      <div class="form-group">
-       <#assign var_link = "http://localhost:4567/crearMetodologia">
-
-<a href="${var_link}">Volver al menu metodologia</a>
-       </div>
+     
  
     
        

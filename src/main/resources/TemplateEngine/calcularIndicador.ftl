@@ -24,12 +24,20 @@
        </div>
        
       <div class="form-group">
-   <label for="indicadores">Seleccione el indicador</label>
-    <input type="text" class="form-control" id="nombreIndicador" name="nombreIndicador" placeholder="Ingrese el nombre del indicador (comienza con i_)">
-    	</div>
+     <label >Seleccione el indicador </label>
+
+	<select id="elegirIndicador" name="nombreIndicador">
+		<ul>
+    <#list indicadores as indicador>
+        <li><option value=${indicador.nombre}> ${indicador.nombre} </option></li>        
+    </#list>
+		</ul> 
+			</select>
+		
+			</div>
     <div class="form-group">
-<button id="calcular">Calcular</button>
-		 </div>
+        <input type="submit" id="register" value="Calcular indicador" disabled="disabled" />
+          </div>
   </form>
   
 <script type="text/javascript">
@@ -84,4 +92,18 @@ $(function() {
     });
 });
 
+</script>
+<script>
+$('#elegirEmpresa,#fechaInicio,#fechaFin,#elegirIndicador').bind('keyup', function() {
+    if(allFilled()) $('#register').removeAttr('disabled');
+});
+</script>
+<script>
+function allFilled() {
+    var filled = true;
+    $('body input').each(function() {
+        if($(this).val() == '') filled = false;
+    });
+    return filled;
+}
 </script>

@@ -1,20 +1,61 @@
 <h2>Condicion Longevidad</h2>
    <p id="status"></p>
-  <form action="" method="POST" role="form">
+  <form action="" id="formid" method="POST" role="form">
     <div class="form-group">
       <label for="anios">Ingrese los anios </label>
       <input type="text" class="form-control" id="anios" name="anios" placeholder="anios">
     </div>
+    <div class="form-group">
+        <input type="submit" id="register" value="Crear Condicion" disabled="disabled" />
+          </div>
+      
+       <div class="form-group">
+   <select id="picksite">
+    <option value="">Agregue Condiciones</option>
+    <option value="http://localhost:4567/condicionLongevidad">Longevidad</option>
+       <option value="http://localhost:4567/condicionCreciente">Creciente</option>
+          <option value="http://localhost:4567/condicionDecreciente">Decreciente</option>
+             <option value="http://localhost:4567/condicionSumatoria">Sumatoria</option>
+                <option value="http://localhost:4567/condicionPromedio">Promedio</option>
+                   <option value="http://localhost:4567/condicionMediana">Mediana</option>
+</select>
+
+<button id="executelink">Agregar otra condicion a la metodologia</button>
+       </div>
     
-    <button type="submit" class="btn btn-default">Crear condicion</button>
     
+    <font size="3" color="red">Regrese al menu crear metodologia para finalizar de cargarle las condiciones a la actual metodologia</font>
     <div class="form-group">
        <#assign var_link = "http://localhost:4567/crearMetodologia">
 
 <a href="${var_link}">Volver al menu metodologia</a>
        </div>
   </form>
- 
+ <script type="text/javascript">
+    $(document).ready(function() {
+        var newUrl = "";
+        $("#picksite").change(function() {
+            $newUrl = $("#picksite option:selected").val();
+        });
+        $("#executelink").click(function() {
+            location = $newUrl ;
+        });
+    });
+</script>
+<script>
+$('#anios').bind('keyup', function() {
+    if(allFilled()) $('#register').removeAttr('disabled');
+});
+</script>
+<script>
+function allFilled() {
+    var filled = true;
+    $('body input').each(function() {
+        if($(this).val() == '') filled = false;
+    });
+    return filled;
+}
+</script>
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>
 $(function() {

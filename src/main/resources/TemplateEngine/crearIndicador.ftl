@@ -10,10 +10,25 @@
       <label for="expresion">Expresion</label>
       <input type="text" class="form-control" id="expresion" name="expresion" placeholder="Ingrese la expresion del indicador">
     
-    <button type="submit" class="btn btn-default">Submit</button>
+     <div class="form-group">
+        <input type="submit" id="register" value="Crear indicador" disabled="disabled" />
+          </div>
   </form>
 
-
+<script>
+$('#nombre,#expresion').bind('keyup', function() {
+    if(allFilled()) $('#register').removeAttr('disabled');
+});
+</script>
+<script>
+function allFilled() {
+    var filled = true;
+    $('body input').each(function() {
+        if($(this).val() == '') filled = false;
+    });
+    return filled;
+}
+</script>
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>
 $(function() {

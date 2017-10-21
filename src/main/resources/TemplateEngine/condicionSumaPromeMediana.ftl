@@ -11,7 +11,7 @@
     </#list>
 		</ul> 
 			</select>
-		
+
 			</div>
      <div class="form-group">
       <label for="comparador">Ingrese el operador para armar la ecuacion </label>
@@ -24,7 +24,14 @@
    
       <div class="form-group">
       <label for="ordenamiento">Ingrese un criterio de ordenamiento </label>
-      <input type="text" class="form-control" id="ordenamiento" name="ordenamiento" placeholder="mayorAmenor o menorAmayor">
+    
+      <select  id="ordenamiento" name="ordenamiento">
+		
+        <option value="mayorAmenor">Ordenar de mayor a menor </option></li>        
+    	<option value="menorAmayor">Ordenar de menor a mayor</option></li> 
+		
+			</select>
+      
     </div>
     <div class="form-group">
       <label for="fechaInicio">Fecha inicio del periodo</label>
@@ -35,18 +42,42 @@
       <input type="text" class="form-control" id="fechaFin" name="fechaFin" placeholder="Ingrese fecha fin del periodo dd/mm/aaaa">
        </div>
     
-  
- <div class="form-group">
-    <button id="seleccionarIndicador">Crear Condicion</button>
-    </div>
     
+   <div class="form-group">
+        <input type="submit" id="register" value="Crear Condicion" disabled="disabled" />
+          </div>
+      
+       <div class="form-group">
+   <select id="picksite">
+    <option value="">Agregue Condiciones</option>
+    <option value="http://localhost:4567/condicionLongevidad">Longevidad</option>
+       <option value="http://localhost:4567/condicionCreciente">Creciente</option>
+          <option value="http://localhost:4567/condicionDecreciente">Decreciente</option>
+             <option value="http://localhost:4567/condicionSumatoria">Sumatoria</option>
+                <option value="http://localhost:4567/condicionPromedio">Promedio</option>
+                   <option value="http://localhost:4567/condicionMediana">Mediana</option>
+</select>
+
+<button id="executelink">Agregar otra condicion a la metodologia</button>
+       </div>
+    <font size="3" color="red">Regrese al menu crear metodologia para finalizar de cargarle las condiciones a la actual metodologia</font>
     <div class="form-group">
        <#assign var_link = "http://localhost:4567/crearMetodologia">
 
 <a href="${var_link}">Volver al menu metodologia</a>
        </div>
   </form>
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        var newUrl = "";
+        $("#picksite").change(function() {
+            $newUrl = $("#picksite option:selected").val();
+        });
+        $("#executelink").click(function() {
+            location = $newUrl ;
+        });
+    });
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
         var  id = "";
@@ -60,6 +91,7 @@
         });
     });
 </script>
+
 
 <!-- Simple JS Function to convert the data into JSON and Pass it as ajax Call --!>
 <script>
@@ -96,3 +128,22 @@ $(function() {
 });
 
 </script>
+
+
+<script>
+$('#elegirIndicador,#comparador,#valorAcomparar,#ordenamiento,#fechaInicio,#fechaFin').bind('keyup', function() {
+    if(allFilled()) $('#register').removeAttr('disabled');
+});
+</script>
+<script>
+function allFilled() {
+    var filled = true;
+    $('body input').each(function() {
+        if($(this).val() == '') filled = false;
+    });
+    return filled;
+}
+</script>
+
+
+

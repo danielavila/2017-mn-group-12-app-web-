@@ -150,7 +150,7 @@ public class Model {
 		unC.getLadoIzq().setTraductor(t);
 	});
 	
-		meto = new Metodologia();
+		
 		return metodologiaAaplicar.aplicarMetodologia(empresas);
 		
 		
@@ -219,7 +219,9 @@ public class Model {
 		Periodo p = new Periodo(fechaI, fechaF);
 		return p;
 	}
-
+public void inicializarMetodologia() {
+	meto = new Metodologia();
+}
 	//// SENDS
 
 	public List<Object> sendEmpresas() {
@@ -247,6 +249,11 @@ public class Model {
 	}
 	
 	public List<Object> sendMetodologias(){
+		Metodologias.getMetodologias().stream().forEach(unaM->{
+			if(!metodologias.containsValue(unaM)) {
+				metodologias.put(String.valueOf(unaM.getId()), unaM);
+			}
+		});
 		List<Object> ret = new ArrayList<>(metodologias.values());
 		return ret;
 	}

@@ -21,16 +21,42 @@
 			</select>
 		
 			</div>
-<div class="form-group">
-<button id="seleccionarIndicador">Crear Condicion</button>
-		 </div>
+ <div class="form-group">
+        <input type="submit" id="register" value="Crear Condicion" disabled="disabled" />
+         
+    
+    </div>
+		 <div class="form-group">
+   <select id="picksite">
+    <option value="">Agregue Condiciones</option>
+    <option value="http://localhost:4567/condicionLongevidad">Longevidad</option>
+       <option value="http://localhost:4567/condicionCreciente">Creciente</option>
+          <option value="http://localhost:4567/condicionDecreciente">Decreciente</option>
+             <option value="http://localhost:4567/condicionSumatoria">Sumatoria</option>
+                <option value="http://localhost:4567/condicionPromedio">Promedio</option>
+                   <option value="http://localhost:4567/condicionMediana">Mediana</option>
+</select>
+
+<button id="executelink">Agregar otra condicion a la metodologia</button>
+       </div>
+       <font size="3" color="red">Regrese al menu crear metodologia para finalizar de cargarle las condiciones a la actual metodologia</font>
     <div class="form-group">
        <#assign var_link = "http://localhost:4567/crearMetodologia">
 
 <a href="${var_link}">Volver al menu metodologia</a>
        </div>
   </form>
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        var newUrl = "";
+        $("#picksite").change(function() {
+            $newUrl = $("#picksite option:selected").val();
+        });
+        $("#executelink").click(function() {
+            location = $newUrl ;
+        });
+    });
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
         var  id = "";
@@ -80,4 +106,17 @@ $(function() {
 
 </script>
 
-
+<script>
+$('#anios,#elegirIndicador').bind('keyup', function() {
+    if(allFilled()) $('#register').removeAttr('disabled');
+});
+</script>
+<script>
+function allFilled() {
+    var filled = true;
+    $('body input').each(function() {
+        if($(this).val() == '') filled = false;
+    });
+    return filled;
+}
+</script>

@@ -29,7 +29,6 @@ import User.MetodologiaAplicable;
 import User.MetodologiaWeb;
 import User.SumaPromMedianaWeb;
 import ar.edu.utn.dds.entidades.Empresas;
-import ar.edu.utn.dds.modelo.Empresa;
 import ar.edu.utn.dds.excepciones.MetodologiaYaExisteException;
 import ar.edu.utn.dds.excepciones.NoHayCondicionesException;
 import ar.edu.utn.dds.excepciones.NoHayEmpresasQueCumplanLaCondicionException;
@@ -37,6 +36,7 @@ import ar.edu.utn.dds.excepciones.NoSeEncuentraElIndicadorException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaEnElPeriodoException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaCuentaException;
 import ar.edu.utn.dds.excepciones.NoSeEncuentraLaEmpresaException;
+import ar.edu.utn.dds.modelo.Empresa;
 import spark.ModelAndView;
 
 public class MainClass {
@@ -81,7 +81,7 @@ public class MainClass {
 				response.status(200);
 				response.type("application/json");
 
-				return "Condicion creada exitosamente, regrese al menu crear metodologia para seguir agregandole condiciones";
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
 			} catch (JsonParseException jpe) {
 				response.status(404);
@@ -111,7 +111,7 @@ public class MainClass {
 				response.status(200);
 				response.type("application/json");
 
-				return "Condicion creada exitosamente, regrese al menu crear metodologia para seguir agregandole condiciones";
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
 			} catch (JsonParseException jpe) {
 				response.status(404);
@@ -141,7 +141,7 @@ public class MainClass {
 				response.status(200);
 				response.type("application/json");
 
-				return "Condicion creada exitosamente, regrese al menu crear metodologia para seguir agregandole condiciones";
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
 			} catch (JsonParseException jpe) {
 				response.status(404);
@@ -170,7 +170,7 @@ public class MainClass {
 				response.status(200);
 				response.type("application/json");
 
-				return "Condicion creada exitosamente, regrese al menu crear metodologia para seguir agregandole condiciones";
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
 			} catch (JsonParseException jpe) {
 				response.status(404);
@@ -198,7 +198,7 @@ public class MainClass {
 				mod.createCondicionCreciente(creciente.getNombreIndicador(), creciente.getAnios());
 				response.status(200);
 				response.type("application/json");
-				return "Condicion creada exitosamente, regrese al menu crear metodologia para seguir agregandole condiciones";
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
 			} catch (JsonParseException jpe) {
 				response.status(404);
@@ -210,7 +210,7 @@ public class MainClass {
 		});
 		
 
-		get("condicionLongevidad", (request, response) -> {
+		get("/condicionLongevidad", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
 			viewObjects.put("templateName", "condicionLongevidad.ftl");
@@ -227,7 +227,7 @@ public class MainClass {
 				response.status(200);
 				response.type("application/json");
 
-				return "Condicion creada exitosamente, regrese al menu crear metodologia para seguir agregandole condiciones";
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
 			} catch (JsonParseException jpe) {
 				response.status(404);
@@ -286,6 +286,7 @@ public class MainClass {
 		
 		get("/crearMetodologia", (request, response) -> {
 			response.status(200);
+			mod.inicializarMetodologia();
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
 			viewObjects.put("templateName", "crearMetodologia.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
@@ -317,6 +318,7 @@ public class MainClass {
 		get("/calcularIndicador", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
 			viewObjects.put("empresas", mod.sendEmpresas());
 			viewObjects.put("templateName", "calcularIndicador.ftl");
 			return new ModelAndView(viewObjects, "main.ftl");
