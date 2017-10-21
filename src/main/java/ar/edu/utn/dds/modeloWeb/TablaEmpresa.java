@@ -1,4 +1,4 @@
-package Model;
+package ar.edu.utn.dds.modeloWeb;
 
 public class TablaEmpresa {
 	private String id ;

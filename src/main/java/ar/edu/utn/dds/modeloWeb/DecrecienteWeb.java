@@ -1,6 +1,6 @@
-package User;
+package ar.edu.utn.dds.modeloWeb;
 
-public class CrecienteWeb {
+public class DecrecienteWeb {
 	private String anios;
 	private String nombreIndicador;
 

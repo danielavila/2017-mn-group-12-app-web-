@@ -1,4 +1,4 @@
-package User;
+package ar.edu.utn.dds.modeloWeb;
 
 /**
  *

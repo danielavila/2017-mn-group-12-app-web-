@@ -7,8 +7,8 @@
       <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-default">Crear metodologia</button>
-      </div>
+        <input type="submit" id="register" value="Crear Metodologia" disabled="disabled" />
+          </div>
       
       
        <div class="form-group">
@@ -79,7 +79,20 @@ $(function() {
 });
 
 </script>
-
+<script>
+$('#nombre').bind('keyup', function() {
+    if(allFilled()) $('#register').removeAttr('disabled');
+});
+</script>
+<script>
+function allFilled() {
+    var filled = true;
+    $('body input').each(function() {
+        if($(this).val() == '') filled = false;
+    });
+    return filled;
+}
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {

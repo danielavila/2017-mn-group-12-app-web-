@@ -1,4 +1,4 @@
-package Model;
+package ar.edu.utn.dds.modeloWeb;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.persistence.PersistenceException;
 import javax.script.ScriptException;
 
-import User.IndicadorCalculable;
 import ar.edu.utn.dds.entidades.Empresas;
 import ar.edu.utn.dds.entidades.Indicadores;
 import ar.edu.utn.dds.entidades.Metodologias;
