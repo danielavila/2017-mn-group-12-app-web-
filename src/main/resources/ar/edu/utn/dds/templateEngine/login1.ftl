@@ -1,6 +1,6 @@
 <div class="starter-template">
 
-<h2>${title}</h2>
+
 
 </div>
 <div class="container">
@@ -17,15 +17,15 @@
 					<a class="navbar-brand" href="#">TP DDS 12</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
-					<form class="navbar-form navbar-right">
+					<form action="" method="POST" role="form" class="navbar-form navbar-right">
 						<div class="form-group">
-							<input type="text" placeholder="usuario" id= "usuario" class="form-control" />
+							<input type="text" placeholder="usuario" id= "usuario" name ="nombre" class="form-control" />
 						</div>
 						<div class="form-group">
-							<input type="password" placeholder="contrasenia" id = "contrasenia"
+							<input type="password" placeholder="contrasenia" id = "contrasenia" name="contrasenia"
 								class="form-control" />
 						</div>
-						<button type="button" id="executelink" class="btn btn-success">Sign in</button>
+						<input type="submit"  onclick="check(this.form)" id="executelink" class="btn btn-success">Sign in</button>
 						
 					</form>
 				</div>
@@ -35,24 +35,67 @@
 
 		<br /> <br /> <br /> <br />
 	</div>
-	</div> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		
-		    $(document).ready(function() {
-				
-			$("#executelink").click(function() {
-				var usuario= $('#usuario').val();
-				var contrasenia= $('#contrasenia').val(); 
-							  
-				$.ajax({
-					url: '/app/log',
-					type: "POST",
-					data:"submit=&usuario="+usuario+"&contrasenia="+contrasenia,
-					success: function(datos){
-						window.location.replace("http://localhost:4567/home");
-					}});
-				return false;
-				});
-			});
-		    
-	</script>
+	</div> 
+	<script>
+$(function() {
+    $('form').submit(function(e) {
+        e.preventDefault();
+        var this_ = $(this);
+        var array = this_.serializeArray();
+        var json = {};
+    
+        $.each(array, function() {
+            json[this.name] = this.value || '';
+        });
+        json = JSON.stringify(json);
+    
+        // Ajax Call
+        $.ajax({
+            type: "POST",
+            url: "login",
+            data: json,
+            dataType: "json",
+            success : function() {
+                
+            },
+            error : function(e) {
+                console.log(e.responseText);
+                $("#status").text(e.responseText);
+            }
+        });
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+});
+
+</script>
+<script language="javascript">
+function check(form)/*function to check userid & password*/
+{
+ /*the following code checkes whether the entered userid and password are matching*/
+ if(form.usuario.value == "Lucas" && form.contrasenia.value == "123")
+  {
+    window.location.replace("http://localhost:4567/home");
+  }
+  else{ 
+  if(form.usuario.value == "Nicolas" && form.contrasenia.value == "123")
+  {
+    window.location.replace("http://localhost:4567/home");
+  }
+  else{
+   if(form.usuario.value == "Gabriel" && form.contrasenia.value == "123")
+  {
+    window.location.replace("http://localhost:4567/home");
+  }
+  else{
+   if(form.usuario.value == "Daniel" && form.contrasenia.value == "123")
+  {
+    window.location.replace("http://localhost:4567/home");
+  }
+  
+ else
+ {
+   alert("Error Password or Username")/*displays error message*/
+  }}}}
+}
+</script>

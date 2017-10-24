@@ -1,16 +1,9 @@
 package ar.edu.utn.dds.modeloWeb;
 
-public class Login {
+public class LoginWeb {
 	private String usuario;
 	private String contrasenia;
-	
-	public Login(){
-        usuario = "mati";
-        contrasenia = "1234";
-    }
-	
-	
-	
+
 	public String getNombre() {
 		return usuario;
 	}

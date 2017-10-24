@@ -20,178 +20,177 @@ import spark.ModelAndView;
 
 public class Condiciones {
 	public void init(Model mod) {
-		
-	get("/condicionMediana", (request, response) -> {
-		response.status(200);
-		Map<String, Object> viewObjects = new HashMap<String, Object>();
-		viewObjects.put("indicadores", mod.sendIndicadores());
-		viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
-		return new ModelAndView(viewObjects, "main.ftl");
-	}, new FreeMarkerEngine());
 
-	post("/condicionMediana", (request, response) -> {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			SumaPromMedianaWeb mediana = mapper.readValue(request.body(), SumaPromMedianaWeb.class);
-
-			mod.createCondicionSumaPromeMediana("mediana", mediana.getNombreIndicador(), mediana.getComparador(),
-					mediana.getValorAcomparar(), mediana.getOrdenamiento(),
-					mod.armarPeriodo(mediana.getFechaInicio(), mediana.getFechaFin()));
+		get("/condicionMediana", (request, response) -> {
 			response.status(200);
-			response.type("application/json");
+			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
+			viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
+			return new ModelAndView(viewObjects, "main.ftl");
+		}, new FreeMarkerEngine());
 
-			return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
+		post("/condicionMediana", (request, response) -> {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				SumaPromMedianaWeb mediana = mapper.readValue(request.body(), SumaPromMedianaWeb.class);
 
-		} catch (JsonParseException jpe) {
-			response.status(404);
-			return "Exception";
-		} catch (NoSeEncuentraElIndicadorException e) {
-			e.printStackTrace();
-			return "Exception";
-		}
-	});
+				mod.createCondicionSumaPromeMediana("mediana", mediana.getNombreIndicador(), mediana.getComparador(),
+						mediana.getValorAcomparar(), mediana.getOrdenamiento(),
+						mod.armarPeriodo(mediana.getFechaInicio(), mediana.getFechaFin()));
+				response.status(200);
+				response.type("application/json");
 
-	get("/condicionPromedio", (request, response) -> {
-		response.status(200);
-		Map<String, Object> viewObjects = new HashMap<String, Object>();
-		viewObjects.put("indicadores", mod.sendIndicadores());
-		viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
-		return new ModelAndView(viewObjects, "main.ftl");
-	}, new FreeMarkerEngine());
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
-	post("/condicionPromedio", (request, response) -> {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			SumaPromMedianaWeb promedio = mapper.readValue(request.body(), SumaPromMedianaWeb.class);
+			} catch (JsonParseException jpe) {
+				response.status(404);
+				return "Exception";
+			} catch (NoSeEncuentraElIndicadorException e) {
+				e.printStackTrace();
+				return "Exception";
+			}
+		});
 
-			mod.createCondicionSumaPromeMediana("promedio", promedio.getNombreIndicador(), promedio.getComparador(),
-					promedio.getValorAcomparar(), promedio.getOrdenamiento(),
-					mod.armarPeriodo(promedio.getFechaInicio(), promedio.getFechaFin()));
+		get("/condicionPromedio", (request, response) -> {
 			response.status(200);
-			response.type("application/json");
+			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
+			viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
+			return new ModelAndView(viewObjects, "main.ftl");
+		}, new FreeMarkerEngine());
 
-			return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
+		post("/condicionPromedio", (request, response) -> {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				SumaPromMedianaWeb promedio = mapper.readValue(request.body(), SumaPromMedianaWeb.class);
 
-		} catch (JsonParseException jpe) {
-			response.status(404);
-			return "Exception";
-		} catch (NoSeEncuentraElIndicadorException e) {
-			e.printStackTrace();
-			return "Exception";
-		}
-	});
+				mod.createCondicionSumaPromeMediana("promedio", promedio.getNombreIndicador(), promedio.getComparador(),
+						promedio.getValorAcomparar(), promedio.getOrdenamiento(),
+						mod.armarPeriodo(promedio.getFechaInicio(), promedio.getFechaFin()));
+				response.status(200);
+				response.type("application/json");
 
-	get("/condicionSumatoria", (request, response) -> {
-		response.status(200);
-		Map<String, Object> viewObjects = new HashMap<String, Object>();
-		viewObjects.put("indicadores", mod.sendIndicadores());
-		viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
-		return new ModelAndView(viewObjects, "main.ftl");
-	}, new FreeMarkerEngine());
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
-	post("/condicionSumatoria", (request, response) -> {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			SumaPromMedianaWeb sumatoria = mapper.readValue(request.body(), SumaPromMedianaWeb.class);
+			} catch (JsonParseException jpe) {
+				response.status(404);
+				return "Exception";
+			} catch (NoSeEncuentraElIndicadorException e) {
+				e.printStackTrace();
+				return "Exception";
+			}
+		});
 
-			mod.createCondicionSumaPromeMediana("sumatoria", sumatoria.getNombreIndicador(),
-					sumatoria.getComparador(), sumatoria.getValorAcomparar(), sumatoria.getOrdenamiento(),
-					mod.armarPeriodo(sumatoria.getFechaInicio(), sumatoria.getFechaFin()));
+		get("/condicionSumatoria", (request, response) -> {
 			response.status(200);
-			response.type("application/json");
+			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
+			viewObjects.put("templateName", "condicionSumaPromeMediana.ftl");
+			return new ModelAndView(viewObjects, "main.ftl");
+		}, new FreeMarkerEngine());
 
-			return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
+		post("/condicionSumatoria", (request, response) -> {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				SumaPromMedianaWeb sumatoria = mapper.readValue(request.body(), SumaPromMedianaWeb.class);
 
-		} catch (JsonParseException jpe) {
-			response.status(404);
-			return "Exception";
-		} catch (NoSeEncuentraElIndicadorException e) {
-			e.printStackTrace();
-			return "Exception";
-		}
-	});
+				mod.createCondicionSumaPromeMediana("sumatoria", sumatoria.getNombreIndicador(),
+						sumatoria.getComparador(), sumatoria.getValorAcomparar(), sumatoria.getOrdenamiento(),
+						mod.armarPeriodo(sumatoria.getFechaInicio(), sumatoria.getFechaFin()));
+				response.status(200);
+				response.type("application/json");
 
-	get("/condicionDecreciente", (request, response) -> {
-		response.status(200);
-		Map<String, Object> viewObjects = new HashMap<String, Object>();
-		viewObjects.put("indicadores", mod.sendIndicadores());
-		viewObjects.put("templateName", "condicionDecreciente.ftl");
-		return new ModelAndView(viewObjects, "main.ftl");
-	}, new FreeMarkerEngine());
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
-	post("/condicionDecreciente", (request, response) -> {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			DecrecienteWeb decreciente = mapper.readValue(request.body(), DecrecienteWeb.class);
+			} catch (JsonParseException jpe) {
+				response.status(404);
+				return "Exception";
+			} catch (NoSeEncuentraElIndicadorException e) {
+				e.printStackTrace();
+				return "Exception";
+			}
+		});
 
-			mod.createCondicionDecreciente(decreciente.getNombreIndicador(), decreciente.getAnios());
-
+		get("/condicionDecreciente", (request, response) -> {
 			response.status(200);
-			response.type("application/json");
+			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
+			viewObjects.put("templateName", "condicionDecreciente.ftl");
+			return new ModelAndView(viewObjects, "main.ftl");
+		}, new FreeMarkerEngine());
 
-			return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
+		post("/condicionDecreciente", (request, response) -> {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				DecrecienteWeb decreciente = mapper.readValue(request.body(), DecrecienteWeb.class);
 
-		} catch (JsonParseException jpe) {
-			response.status(404);
-			return "Exception";
-		} catch (NoSeEncuentraElIndicadorException e) {
-			e.printStackTrace();
-			return "No se encuentra el indicador";
-		}
-	});
+				mod.createCondicionDecreciente(decreciente.getNombreIndicador(), decreciente.getAnios());
 
-	get("/condicionCreciente", (request, response) -> {
-		response.status(200);
-		Map<String, Object> viewObjects = new HashMap<String, Object>();
-		viewObjects.put("indicadores", mod.sendIndicadores());
-		viewObjects.put("templateName", "condicionCreciente.ftl");
+				response.status(200);
+				response.type("application/json");
 
-		return new ModelAndView(viewObjects, "main.ftl");
-	}, new FreeMarkerEngine());
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
-	post("/condicionCreciente", (request, response) -> {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			CrecienteWeb creciente = mapper.readValue(request.body(), CrecienteWeb.class);
+			} catch (JsonParseException jpe) {
+				response.status(404);
+				return "Exception";
+			} catch (NoSeEncuentraElIndicadorException e) {
+				e.printStackTrace();
+				return "No se encuentra el indicador";
+			}
+		});
 
-			mod.createCondicionCreciente(creciente.getNombreIndicador(), creciente.getAnios());
+		get("/condicionCreciente", (request, response) -> {
 			response.status(200);
-			response.type("application/json");
-			return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
+			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("indicadores", mod.sendIndicadores());
+			viewObjects.put("templateName", "condicionCreciente.ftl");
 
-		} catch (JsonParseException jpe) {
-			response.status(404);
-			return "Exception";
-		} catch (NoSeEncuentraElIndicadorException e) {
-			e.printStackTrace();
-			return "No se encontro el indicador";
-		}
-	});
-	
+			return new ModelAndView(viewObjects, "main.ftl");
+		}, new FreeMarkerEngine());
 
-	get("/condicionLongevidad", (request, response) -> {
-		response.status(200);
-		Map<String, Object> viewObjects = new HashMap<String, Object>();
-		viewObjects.put("templateName", "condicionLongevidad.ftl");
-		return new ModelAndView(viewObjects, "main.ftl");
-	}, new FreeMarkerEngine());
+		post("/condicionCreciente", (request, response) -> {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				CrecienteWeb creciente = mapper.readValue(request.body(), CrecienteWeb.class);
 
-	post("/condicionLongevidad", (request, response) -> {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			LongevidadWeb lon = mapper.readValue(request.body(), LongevidadWeb.class);
+				mod.createCondicionCreciente(creciente.getNombreIndicador(), creciente.getAnios());
+				response.status(200);
+				response.type("application/json");
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
 
-			mod.createCondicionLongevidad(lon.getAnios());
+			} catch (JsonParseException jpe) {
+				response.status(404);
+				return "Exception";
+			} catch (NoSeEncuentraElIndicadorException e) {
+				e.printStackTrace();
+				return "No se encontro el indicador";
+			}
+		});
 
+		get("/condicionLongevidad", (request, response) -> {
 			response.status(200);
-			response.type("application/json");
+			Map<String, Object> viewObjects = new HashMap<String, Object>();
+			viewObjects.put("templateName", "condicionLongevidad.ftl");
+			return new ModelAndView(viewObjects, "main.ftl");
+		}, new FreeMarkerEngine());
 
-			return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
+		post("/condicionLongevidad", (request, response) -> {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				LongevidadWeb lon = mapper.readValue(request.body(), LongevidadWeb.class);
 
-		} catch (JsonParseException jpe) {
-			response.status(404);
-			return "Exception";
-		}
-	});
-}
+				mod.createCondicionLongevidad(lon.getAnios());
+
+				response.status(200);
+				response.type("application/json");
+
+				return "Condicion creada exitosamente, regrese al menu metodologia para finalizar la carga de condiciones";
+
+			} catch (JsonParseException jpe) {
+				response.status(404);
+				return "Exception";
+			}
+		});
+	}
 }
