@@ -75,22 +75,22 @@ function check(form)/*function to check userid & password*/
  /*the following code checkes whether the entered userid and password are matching*/
  if(form.usuario.value == "Lucas" && form.contrasenia.value == "123")
   {
-    window.location.replace("http://localhost:4567/home");
+    window.location.replace("http://localhost:4567/");
   }
   else{ 
   if(form.usuario.value == "Nicolas" && form.contrasenia.value == "123")
   {
-    window.location.replace("http://localhost:4567/home");
+    window.location.replace("http://localhost:4567/");
   }
   else{
    if(form.usuario.value == "Gabriel" && form.contrasenia.value == "123")
   {
-    window.location.replace("http://localhost:4567/home");
+    window.location.replace("http://localhost:4567/");
   }
   else{
    if(form.usuario.value == "Daniel" && form.contrasenia.value == "123")
   {
-    window.location.replace("http://localhost:4567/home");
+    window.location.replace("http://localhost:4567/");
   }
   
  else

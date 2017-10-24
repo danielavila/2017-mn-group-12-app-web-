@@ -38,13 +38,9 @@ public class App {
 		Login l = new Login();
 		l.init(mod);
 
-		get("/", (request, response) -> {
-			Map<String, Object> viewObjects = new HashMap<String, Object>();
-			viewObjects.put("title", "TP ANUAL DDS");
-			return new ModelAndView(viewObjects, "main.ftl");
-		}, new FreeMarkerEngine());
 
-		get("/home", (request, response) -> {
+
+		get("/", (request, response) -> {
 			response.status(200);
 			Map<String, Object> viewObjects = new HashMap<String, Object>();
 			viewObjects.put("title", "TP ANUAL DDS");
